@@ -1,6 +1,6 @@
 ![logo](./image/logo.jpg)
 
-## 1. Functional and logic programming
+## 1. Functional and logic programming AI
 
 - Free（open source GPL）
 
@@ -69,6 +69,8 @@
 
 ### 1.1Environment installation
 
+In Anaconda there are 2 version, 2.x   and 3.7. Python3  is better, it is more power
+
 Version selected :  Python2 VS Python3 
 
 IDE: integrated development environment
@@ -81,9 +83,17 @@ https://www.anaconda.com/products/individual
 
 <font color = 'red'>**Anaconda**</font>：An open source Python distribution，which contains a large number of tools.  And spyder、jupyterNotebook
 
-Spyder：Run the script here
+![anaconda](C:\Users\everi\Desktop\Code\Python\Py2021\image\anaconda.png)
 
-jupyterNotebook： A web applications that allow creation and sharing. Support multiple programming languages such as Julia、R、Python、Octave
+Spyder：Run the script here, like Eclipse
+
+jupyterNotebook： A web applications that allow creation and sharing. Support multiple programming languages such as Julia、R、Python、Octave.
+
+First click Jupter Notebook label, and it will jump a website page. In this website ,we  select a path in our computer. In my computer I select Desktop/Code/Python/Py2021. You can select any path at will.
+
+And select New/Python3 button/ And then rename it --Lesson-1
+
+
 
 interactive programming ：Run the code in cmd
 
@@ -93,11 +103,38 @@ Jupter NoteBook
 
 ​           - code sharing by email/Git
 
-​          - big data integration：spark、scala、scikit-learn、R、python
+          - big data integration：spark、scala、scikit-learn、R、python
 
-- export/import ipython
+```
+print("Hello world1")  
+The difference between ctrl + enter, shift + enter and alt + enter
+#ctrl + enter :the function is run the code 
+#shift + enter :first run the code, in the same time, jump to the next code block
+#alt + enter :insert a new block to write the python code
+```
+
+- export/import ipython file
+
+```
+export:share the file. Click File/ Download as / and then choose ipython file/ py
+import: upload button/ find the file from others
+```
 
 - annotations 
+
+```
+#  If i want the code donot run for a signle line, we add annotation like this #
+
+'''
+If there are many line of content, we need add annotation. Multiline string
+'''
+```
+
+Practice ：put out a Christmas tree
+
+```
+print("   *","  ***","*******","   |",sep="\n")
+```
 
 
 
@@ -105,19 +142,102 @@ Jupter NoteBook
 
 Python standard data type
 
-- String
+- String 
 
-- Numbers include int and float
+  ```python
+  #1. The basic data type :String
+  name = '123_abc' # signle line, the number ,letters,under score is ok to definite the string
+  # '' signle quotation     ""double quotation,for multiline we use three quotation
+  name2 =  '''
+  david
+  fly
+  Russell
+  '''          # multiline
+  print(name, name2)
+  # We can use type() function to check the data type
+  print(type(name))  # str = string
+  name3 = "His name is 'fly'"
+  ```
+
+  
+
+- Numbers include int( 1,2) and float(1.0, 3.1415926)
+
+  ```python
+  #2. The basic data type :Number
+  x1 = 1
+  x2 = 10.0 #number
+  #the defination of float is not the real number , it is much closer to this number
+  print(type(x2))
+  print((0.1 + 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1)== 0.9)     #False
+  #if we want to make a judgement (0.1 + 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1) and 0.9
+  print(0.9-(0.1 + 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1+ 0.1) < 10 **-9 )  #True
+  ```
 
 - Bool :True/False，it is useful to make judgments
 
+  ```
+  #3. The basic data type :BOOL
+  x3 = False == 1 # the real value of False is 0 in number(False == 0 )
+  x4 = True == 0  # the real value of True is 1 in number(True ==1 )
+  print(x3,x4)
+  print(x3 * 5, type(x4))  # calculation
+  ```
+
 - List
+
+  ```python
+  #3. The basic data type :List
+  #List is a range of data, inside of there are many kinds of data type,
+  #such as string,number,list
+  lst = [1,2,3,4]
+  lst1 = ["a","b","c"]
+  lst2 = [["Jack","Bob","Kite"],1,2,3,"a","b","c",[1,2,3]]
+  print(lst2)
+  #In list we can get the number by position, we call the position as index,
+  #If we want to get 3, we can write like lst[2]
+  print(lst[2]) 
+  print(lst2[0][2])  #we need add another square bracket []
+  ```
 
 - Tuple 
 
+  ```
+  #4. The basic data type :Tuple
+  #Tuple is also a range of data, but we can not change the value inside of it. 
+  #So Tuple is a spcial kind of List
+  tup = (1,2,3,4)  # not square bracke
+  tup1 = 1,2,3
+  tup2 = 1, 
+  lis3 = [1,2,3,4]
+  lis3[2] = 100
+  #tup[2] = 100
+  print(lis3)  # ctrl +enter
+  print(type(tup))
+  ```
+
 - Dict
 
-- Type conversion
+  ```
+  #4. The basic data type :Dict
+  #Dict  is a pair of value, it is  key and  value.
+  #the key and value is unordered, we can not sort it
+  dic1 = {"name":"Jack","age":19,"city":'peak',"hair":"black"}
+  print(dic1,type(dic1)) 
+  ```
+
+- Type conversion(change int\float\ string are included, others will discussed later)
+
+  ```
+  val1 = 5 # int
+  val2 = float(val1) #float
+  val3 = str(val2)  #string  
+  val4 = 5.5
+  val5 = int(val4)  #change float to int
+  print(type(val1),type(val2),type(val3),type(val5))
+  ```
+
+  
 
 
 ### 1.3 Basic knowledge
