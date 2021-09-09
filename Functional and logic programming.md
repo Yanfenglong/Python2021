@@ -1,8 +1,8 @@
 ![logo](./image/logo.jpg)
 
-## 1. Functional and logic programming AI
+## 1. Functional and logic programming
 
-- Free（open source GPL）
+- Free（Open source GPL）
 
 - Cross platform
 
@@ -91,9 +91,7 @@ jupyterNotebook： A web applications that allow creation and sharing. Support m
 
 First click Jupter Notebook label, and it will jump a website page. In this website ,we  select a path in our computer. In my computer I select Desktop/Code/Python/Py2021. You can select any path at will.
 
-And select New/Python3 button/ And then rename it --Lesson-1
-
-
+And select New/Python3 button/ then rename it --Lesson-1
 
 interactive programming ：Run the code in cmd
 
@@ -187,7 +185,7 @@ Python standard data type
 - List
 
   ```python
-  #3. The basic data type :List
+  #4. The basic data type :List
   #List is a range of data, inside of there are many kinds of data type,
   #such as string,number,list
   lst = [1,2,3,4]
@@ -203,9 +201,9 @@ Python standard data type
 - Tuple 
 
   ```
-  #4. The basic data type :Tuple
+  #5. The basic data type :Tuple
   #Tuple is also a range of data, but we can not change the value inside of it. 
-  #So Tuple is a spcial kind of List
+  #So Tuple is a special kind of List
   tup = (1,2,3,4)  # not square bracke
   tup1 = 1,2,3
   tup2 = 1, 
@@ -219,7 +217,7 @@ Python standard data type
 - Dict
 
   ```
-  #4. The basic data type :Dict
+  #6. The basic data type :Dict
   #Dict  is a pair of value, it is  key and  value.
   #the key and value is unordered, we can not sort it
   dic1 = {"name":"Jack","age":19,"city":'peak',"hair":"black"}
@@ -257,6 +255,10 @@ Python standard data type
 ```python
 #operator + - * /  **power//Take the integer division  %Modular operation -Returns the remainder of division
 
+Practice: 
+    1.calculate the equation 40 - 3 ** 2 +8/3**2 *10
+    2.in 8/3**2 *10 , which part runs first? 8/3 or  3**2 or 2 *10
+    
 #compare/logic calculation ---and or not
 #The result of cmp/logic is True/False
 
@@ -268,23 +270,121 @@ Python standard data type
 #Directional ,It's not that the value of X has changed, but that the position pointed by X has changed
 ```
 
+"Narcissistic number" is a three digit number， The sum of each digit cube is equal to the number itself. 
 
+For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.
+
+- range(start, limit, delta=1,dtype=None)
 
 ## 2. Python container
 
-### 2.1List
+### 2.1 List
 
-​	x = 1 means x is a variable, and its value is unique. When x = [1,2,3,4], it is a list. There are four elements in this list. Each element has a index, that is the element position. 
+​	x = 1 means x is a variable, and its value is unique. When x = [1,2,3,4], it is a list. There are four elements in this list.
 
 - List common operation
 
+```
+
+#Link and repeat
+x = [1,2,3]
+y = [3,4,5]
+x.append(y) #append add a new element
+print(x)    #[1, 2, 3, [3, 4, 5]]
+x.extend(y) #extend 
+print(x)  
+#append modifiy the original list itself, whileise +create a new one [1,2,3]+['Jack']
+```
+
+Each element has a index, that is the element position. Get an element by specifying a subscript(index), or by specifying a range, you get elements for a set of sequences. This way of accessing sequences is called slicing.
+
+```
+
+#The basic global function in list, it return the max,min,sun value of list 
+#These function are defined for the list of numbers only
+# .index(obj)：Find the index position of the first match of a value from the list
+```
+
+> ```
+> Note：1.end_index is actually the index of the first object you don't want to get，so ls3[0:-1] can not get ls3[-1]. So if you want to get the element include end_index location，you donnot need to write end_index(ls3[::])，or enter a value that is outside the end_index range.
+> 2.When the step is positive, indicating left to right.If step is negative, the range count from right to left 
+> ```
+
+```
+#Question
+#x = [1,2,3,1,[1],[1,1],'1']
+#what is the different between type(x[1]) and type(x[1:2])？ 
+#what is the value of x.index(1),x.count(1)？
+```
+
+
+
+```python
+a = [1,2,3,['my','name'],'1']
+print(a[3][1]) # print(a[-2][1])
+
+#You can change the length at will，+ *
+#1.a = [1,2,3] a = ['1','2','3'] different
+ 
+#2.change a to [1,2,3,'Jack']  
+
+#3. create a list m = [3,1,5,5,4,3,77,8] print the second and fourth element.
+```
+
+
+
 - List and generator(range)
 
--  Insert and delete 
+```
+Question:
+    1. is the result of range() integer？  # 
+    2. create a range with 5 element， Use type() to check its type
+    3. which grammar is correct？a = range(5) ，a = range(2:6),a = range(3,7) 
+    4. if  b = range(10), what is the result of b[2],b[-2],b[5] 
+```
+
+
+
+
+
+
+
+- Insert and delete 
+
+```
+
+```
+
+
+
+
 
 - Copy list
-
 - Sort
+
+Question:
+
+   1. what is the difference between sort and sorted
+
+      
+
+   2. create a list m = [1,2,4,1,1,3] , insert ["Jack"] between 4 and 1
+
+   3. m = [1,2,4,1,1,3] what is the difference between m.remove(2)  ,m.pop(2), del m[2]
+
+   4. what is the difference between append and extend?
+
+5. Input 3 int x,y,and z，please output these three numbers from small to large.
+
+we need to use 2 function: input(), for i in range():
+
+```
+#first we define an empty list, when we insert a value, we append this value into the list, and then use sort function  
+i = []
+for k in range(3):
+    a = int(input('Please insert a integer'))
+    
+```
 
 
 
@@ -294,13 +394,15 @@ Python standard data type
 
 ### 2.3 Dict
 
+  Dictionary is another variable container model. it  can store any type of object. Keys must be unique, but values do not. In dict. In dict , key value pair is separated by colon, and each pair is separated by comma, whereas the dict is enclosed in curly braces.
+
 - Built-in functions in dict
 
 - Content reading in dict
 
 ### 2.4 Set
 
-
+  Set is an unordered sequence of non repeating elements. You can create a set using braces {} or the set() function. 
 
 ## 3. Control flow 
 
