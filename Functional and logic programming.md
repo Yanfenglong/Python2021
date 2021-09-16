@@ -235,6 +235,22 @@ Python standard data type
   print(type(val1),type(val2),type(val3),type(val5))
   ```
 
+  Lesson 1 review:
+  
+  ```
+  1.please describe the basic data type.
+   a = 1.0   #number float
+   a = 'my name is yan'  #String  ''signle quotation ""double quotation
+   a = [1,2,3]   #  list  []square bracket 
+   a = (1,2,3)   #  tuple () parentheses
+   a = {"name":"Jack"} #dict {} curly brACE 
+   
+  2.what is the meaning of these function? 
+    print()\  type()
+    
+  3.How to import/export/create a jupterNoteBook 
+  ```
+  
   
 
 
@@ -244,62 +260,125 @@ Python standard data type
 
 > Variable value is not fixed，the equal sign is used to assign values to variables。The rules of variable name：
 >
-> 1.The first character of a variable name must be a letter Or underline，It cannot start with a number
+> 1.The first character of a variable name must be a letter Or underline(Upper case or lower case is ok)，It cannot start with a number
 >
 > 2.Variable name cannot be a keyword
 
-
+```
+#word = 4
+#hello = 5
+hello, world = 5,4  #add comma , maltivariable assignment
+a = b = c = 1   # a =1; b=1; c=1
+print(a,b,c,hello)
+```
 
 - 2. operator
 
 ```python
-#operator + - * /  **power//Take the integer division  %Modular operation -Returns the remainder of division
+#operator +addition -substraction *multiplication / division
+#+addition -substraction *multiplication / division
+print(3+4-2*6/3)  #
+# ** is the power of a value  2**3 = 2*2*2 =8 
+print(5**3)
+#// back slash Take the integer division  
+print(8//3)   #
+#% precent sign.   Modular operation -Returns the remainder of division
+a = 21
+b = 10
+print(a%b)   #20 = 10 * 2 +1 
+# calculate the equation 40 - 3 ** 2 +8/2**3 *10
+print(8/2**3 *10)
+#in 8/2**3 *10 , which part runs first? 8/2 or  2**3 or 2 *10
 
-Practice: 
-    1.calculate the equation 40 - 3 ** 2 +8/3**2 *10
-    2.in 8/3**2 *10 , which part runs first? 8/3 or  3**2 or 2 *10
-    
-#compare/logic calculation ---and or not
-#The result of cmp/logic is True/False
+#**power//Take the integer division  %Modular operation -Returns the remainder of division
 
-#member operator in /not in, usually used in dict and list
+#Question: if i want to get 1,7,5 from 175, How to do?  
+a = 175
+print(a//100)       #1
+print(a //10 % 10)    #print(int(135 /10 % 10))   print(135//10 -10)    #
+print(a % 10) 
+
+#compare calculation: > greater < lower <= greater equal 
+# >= lower equal == equal  != not equal
+print(5 != 3)
+
+#logic calculation ---3 keyword:and or not
+print( 3 > 2 and  4 <= 3 )  # both of them is true ,the result is true
+print( 3 > 2 or  4 <= 3 )  # one of them is true ,the result is true
+print(not 3 > 2)
+
+#member operator: -- keyword: in / not in ,it is useally used in list and dict
+ls = [1,2,3,4]
+print(2 not in ls)
+dict1 = {"name":"yan","age":18}
+print("name" not in dict1)
 ```
 
 
 ```python
-#Directional ,It's not that the value of X has changed, but that the position pointed by X has changed
+#Directional data ,It's not that the value of X has changed, but that the position pointed by X has changed
+x = 1 # store 1 in c disk
+print(x)
+x = "hello world" #store "hello world" in d disk
+print(x)
 ```
 
-"Narcissistic number" is a three digit number， The sum of each digit cube is equal to the number itself. 
 
-For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.
-
-- range(start, limit, delta=1,dtype=None)
 
 ## 2. Python container
 
 ### 2.1 List
 
-​	x = 1 means x is a variable, and its value is unique. When x = [1,2,3,4], it is a list. There are four elements in this list.
+​	x = 1 means x is a variable, and its value is unique. When x = [1,2,3,4], it is a list. There are four elements in this list . Inside of a list there are many kind of data type, such as string/number/list etc.
+
+```
+list0 = [1,2,3,4]  # add 4 elements  in a sequence
+list1 = [1,2,3,4,"hello","world",[5,6,7],1.3,5.4]
+list1
+```
 
 - List common operation
 
 ```
-
 #Link and repeat
 x = [1,2,3]
-y = [3,4,5]
-x.append(y) #append add a new element
-print(x)    #[1, 2, 3, [3, 4, 5]]
-x.extend(y) #extend 
-print(x)  
+y = [4,5,6]
+#print(x+y, x*2)  #  link and repeat
+# 2 function to control list : append, extend
+x.append(y)  #append add a new element
+print(x) #[1, 2, 3, [4, 5, 6]]
+x.extend(y)
+print(x)  #[1, 2, 3, 4, 5, 6]
 #append modifiy the original list itself, whileise +create a new one [1,2,3]+['Jack']
 ```
 
-Each element has a index, that is the element position. Get an element by specifying a subscript(index), or by specifying a range, you get elements for a set of sequences. This way of accessing sequences is called slicing.
+​       Each element has a index, that is the element position. Get an element by specifying a subscript(index), or by specifying a range, you get elements for a set of sequences. This way of accessing sequences is called slicing.
 
 ```
+list2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+list3 = [1,2,3,4,"hello","world",[5,6,7],1.3,5.4]
+list4 = [1,2,[5,6,7],1,2,3,4,"hello","world",[5,6,7],1.3,5.4]
+#print(list3[6][2])  #use position/subscript/index get the element
+#print(list4[-2]) 
+# if we use negative number , it count from right to  left, -1 is the last element
+#slicing:add some colons , start : stop(limit) number : step
+#the stop number is not included in this range
+#print(list2[0:80:3]) 
+#print(list2[2::])   # list2[0:10:1]
+print(list2[-1::-1]) # count from right to left,parameters can be set as negative number
+```
 
+
+
+```
+#some build-in function  len --length of a list
+list2 = [1, 2, 3, 4, 5, 6, 7, 8,3] # '' is string
+#print(len(list2),list2.count(3) )
+#max , min , sum 
+# these function are defined for the list of neumber only
+print(max(list2), min(list2), sum(list2))
+#index 
+print(list2.index(3))
 #The basic global function in list, it return the max,min,sun value of list 
 #These function are defined for the list of numbers only
 # .index(obj)：Find the index position of the first match of a value from the list
@@ -311,10 +390,11 @@ Each element has a index, that is the element position. Get an element by specif
 > ```
 
 ```
+
 #Question
-#x = [1,2,3,1,[1],[1,1],'1']
-#what is the different between type(x[1]) and type(x[1:2])？ 
-#what is the value of x.index(1),x.count(1)？
+x = [1,2,3,1,[1],[1,1],'1']
+#what is the different between type(x[1]) and type(x[1:2])？ int vs list
+#what is the value of x.index(1),x.count(1)？ # 0 , 2
 ```
 
 
@@ -323,7 +403,7 @@ Each element has a index, that is the element position. Get an element by specif
 a = [1,2,3,['my','name'],'1']
 print(a[3][1]) # print(a[-2][1])
 
-#You can change the length at will，+ *
+#practice :  You can change the length at will，+ *
 #1.a = [1,2,3] a = ['1','2','3'] different
  
 #2.change a to [1,2,3,'Jack']  
@@ -336,37 +416,63 @@ print(a[3][1]) # print(a[-2][1])
 - List and generator(range)
 
 ```
+#generator: it is comma , not colons , start : limit number : step
+b = range(10)
+c = list(range(10))
+print(c)
+```
+
+
+
+```
 Question:
-    1. is the result of range() integer？  # 
+    1. is the result of range() integer？  # yes
     2. create a range with 5 element， Use type() to check its type
     3. which grammar is correct？a = range(5) ，a = range(2:6),a = range(3,7) 
     4. if  b = range(10), what is the result of b[2],b[-2],b[5] 
 ```
 
-
-
-
-
-
-
 - Insert and delete 
 
 ```
+#remove an element
+#c.remove(5)
+#del is a sentence , slice
+#del c[2:4] 
+#c.clear() #clear the whole list
+c.insert(1,"hello") #insert(index, value),index this the position of this list
+print(c)
+```
 
+- Copy list
+
+```
+f = list(range(8))
+#g = f
+g = f.copy()  
+#copy points to another new list
+#the direct assignment points to the same list
+g[1] = 100
+print(f,g)
 ```
 
 
 
-
-
-- Copy list
 - Sort
+
+```python
+j = [3, 5, 100, 45, 4, 78, 56 ] # unordered list
+k = ['abc','hello','solo','world']
+#j.sort(reverse = False)  # ordered, numbers are arranged sequentially
+k.sort() #letters are arranged in alphabetical order
+m = sorted(j,reverse = True) 
+#sort and copy a list, so j is not changed
+print(j,m,k)
+```
 
 Question:
 
    1. what is the difference between sort and sorted
-
-      
 
    2. create a list m = [1,2,4,1,1,3] , insert ["Jack"] between 4 and 1
 
@@ -425,6 +531,34 @@ for k in range(3):
 ```python
 # while-else
 ```
+
+Practice：
+
+1. Output all even which is less than 10
+
+```
+i = 1
+while i<10:
+    i +=1
+    if i%2 ==0:
+        print(i)
+```
+
+
+
+   2."Narcissistic number" is a three digit number， The sum of each digit cube is equal to the number itself. 
+
+For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.
+
+- range(start, limit, delta=1,dtype=None)
+
+```
+153 // 10
+153 // 10 % 10
+153 % 10
+```
+
+
 
 
 - Loop control statement
@@ -588,6 +722,8 @@ num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', '
 # 所有类别型数据
 # cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus', 'Over18', 'OverTime']
 ```
+
+
 
 ## 10. Assessment and Evaluation
 
