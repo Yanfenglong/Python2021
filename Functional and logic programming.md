@@ -470,15 +470,33 @@ m = sorted(j,reverse = True)
 print(j,m,k)
 ```
 
-Question:
+Lesson-2 review Question:
 
-   1. what is the difference between sort and sorted
+      1. what is the difference between sort and sorted?
 
-   2. create a list m = [1,2,4,1,1,3] , insert ["Jack"] between 4 and 1
+```
+m.sort()   -- modify the original list into an ordered sequence
+sorted(m)  -- create a new list
+```
 
-   3. m = [1,2,4,1,1,3] what is the difference between m.remove(2)  ,m.pop(2), del m[2]
+​    2. create a list m = [1,2,4,1,1,3] , insert ["Jack"] between 4 and 1
 
-   4. what is the difference between append and extend?
+```
+m.insert(3,"Jack")
+```
+
+   3.m = [1,2,4,1,1,3] what is the difference between m.remove(2)  ,m.pop(2), del m[2]
+
+```
+m.pop() ,del m[2] is a statement, the result is same
+```
+
+  4 .what is the difference between append and extend?
+
+```
+append #  [1,2,3,[4,5,6]]  
+extend #  [1,2,3,4,5,6] 
+```
 
 5. Input 3 int x,y,and z，please output these three numbers from small to large.
 
@@ -488,13 +506,32 @@ we need to use 2 function: input(), for i in range():
 #first we define an empty list, when we insert a value, we append this value into the list, and then use sort function  
 i = []
 for k in range(3):
-    a = int(input('Please insert a integer'))
-    
+    a =  int(input("Please input the number here"))
+    i.append(a)
+i.sort(reverse = True) # try to output the value from large to small
+print(i)
+ 
 ```
 
 
 
 ### 2.2  Tuple 
+
+Tuple is a special list, of which  the value can not be changed
+
+```python
+a = (1,2,3,4)
+b = 1,
+c = [1,2,3]
+del c[2]
+#del a[2]  #'tuple' object doesn't support item deletion
+#del a
+#build in functions is ok : such as max , min , len,
+print(max(a),min(a),len(a))
+d = list(a)
+d.insert(1,'abc')
+print(d)
+```
 
 
 
@@ -502,13 +539,98 @@ for k in range(3):
 
   Dictionary is another variable container model. it  can store any type of object. Keys must be unique, but values do not. In dict. In dict , key value pair is separated by colon, and each pair is separated by comma, whereas the dict is enclosed in curly braces.
 
+```python
+#dit In dict , key value pair is separated by colon, 
+#and each pair is separated by comma, whereas the dict is enclosed in curly braces.
+e = {'name':'yan','name12':['Jack'],(1,2):["hello"]}
+#the key can be string/Tuple, but not be list,the value is string/list/dict
+f = {'name':'yan','home':{'location':'Jakarta','email':'yan@google.com'}}
+g = {'name':'yan'}
+g['age']  = '30' #insert
+g['name'] = 'Jack'  #update
+del g['age']  #delete
+g #query, find information inside of it , we just type its name
+```
+
 - Built-in functions in dict
 
+```python
+#Built-in functions in dict
+dic1 = {'a':'1','b':'2'}
+dic2 = {'c':'3','d':'4'}
+dic3 = dic1.copy() #copy a new dict
+dic1.update(dic2) #add the content, merge two dict together
+print(dic1,dic2,dic3)
+print(len(dic1)) #len
+print('hello' in dic1) # in :determine if a dict contains this key
+```
+
 - Content reading in dict
+
+```
+dic4 = {'name':'yan','home':{'location':'Jakarta','email':'yan@google.com'}}
+print(dic4['home']['location'])
+print(dic4.get('home').get('location')) # dict.get()
+print(dic4.values(),dic4.keys()) #
+
+```
+
+
+
+```
+dic5 = {'name':'yan','age':'18','height':'180cm','hair':'black',
+        'home':{'location':'Jakarta','email':'yan@google.com'}}
+#use a loop , like for cycle
+for i in dic5.values(): #here we output the values, try to output the keys 
+    print(i)
+
+for k,v in dic5.items():  #(k,v)
+    print(k,v)  #print(v)
+```
+
+
+
+```
+#practice: use input function, try to input 1,2,3    
+#if you input 1  , the system output : 'you have input 1'
+#if you input 2  , the system output : you have input 2
+#if you input 3  , the system output : you have input 3
+#if you input other number , the system output : you have input wrong number
+info = {'1':"you have input 1",'2':"you have input 2",'3':"you have input 3"}
+a = input("please input value here")
+print(info.get(a)) #if user input other number,we need do judgement
+```
+
+
 
 ### 2.4 Set
 
   Set is an unordered sequence of non repeating elements. You can create a set using braces {} or the set() function. 
+
+```
+basket = {"apple","orange","pear","apple","apple","apple"}  #set type
+basket1 = set("pear")
+print(basket1)
+set1 = set("orange")# letters
+set2 = {}  #it is dict type
+set3 = set(("orange","pear","apple")) #words
+print(set3)
+```
+
+calculate set
+
+```
+set4 = {"a","b","c","d"}
+set5 = {"e","f","c","taobao"}
+#print(set4 ^set5) # | or & and ^ only in set 4 or in set5 
+set5.add("google")#add element
+set5.remove("c")#remove element
+set5.discard("c")#remove element,even the element does not exist, there is no error
+set5.pop() #randomly delete an element,takes no arguments
+print(set5)
+```
+
+
 
 ## 3. Control flow 
 
@@ -534,7 +656,7 @@ for k in range(3):
 
 Practice：
 
-1. Output all even which is less than 10
+1. Output all even number which is less than 10
 
 ```
 i = 1
