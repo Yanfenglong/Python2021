@@ -634,18 +634,64 @@ print(set5)
 
 ## 3. Control flow 
 
-
-
 ### 3.1 Sequential structure
+
+Sequential structure means that the code is executed from top to the bottom without branches or loop  
 
 ### 3.2 Branching structure
 
 - if statement
 
+```python
+#multi conditions we use or/ and 
+age = 29
+if (age >18 and age < 22) or (age >24 and age < 30): 
+    print("you are old enough to be an university student")
+else:
+    print("you are old enough")
+```
+
+
+
 
 ### 3.3 Cycle structure
 
 - for cycle
+
+```python
+#For cycle is  a loop , we can get all the elements from a sequence,such as list/dict
+lst = list(range(5)) # 0,1,2,3,4
+for i in lst[::2]: #slicing
+    print(i)
+```
+
+
+
+```python
+dic1 = {'Tom':'18','Jack':'19','Alex':'20','Mary':'21'}
+for i in dic1:
+    print(dic1[i])
+```
+
+
+
+```python
+for i in range(3):  #underline is ok
+    for k in range(2):  #nest loop, circulate embedding method
+        print(i,k)   #we should not use nest loop too much, no more than 3 time 
+```
+
+#practice: write a for cycle ,try to output even number which is no more than 10
+#0,2,4,6,8
+
+```
+for i in range(10):
+    if  i % 2 ==0:
+        print(i)
+print("That is the even number")
+```
+
+
 
 
 - while cycle
@@ -670,7 +716,9 @@ while i<10:
 
    2."Narcissistic number" is a three digit number， The sum of each digit cube is equal to the number itself. 
 
-For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.
+For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.    
+
+1* 1* 1 = 1  3 * 3* 3 =27 5* 5*5 = 125      1+27+125 =153
 
 - range(start, limit, delta=1,dtype=None)
 
