@@ -97,6 +97,15 @@ interactive programming ：Run the code in cmd
 
 Script programming：Run the script after switching paths ,python a.py
 
+in cmd
+
+```
+for i in range(10):
+    print(i)
+    #double click enter
+type quit()/exit() to exit interactive programming
+```
+
 Jupter NoteBook
 
 ​           - code sharing by email/Git
@@ -649,6 +658,30 @@ if (age >18 and age < 22) or (age >24 and age < 30):
     print("you are old enough to be an university student")
 else:
     print("you are old enough")
+  # if statement must be followed by a colon ： 
+  # automatically indent: For consistency, we always use four spaces to indent a block
+  # when if statement finished. Code return to the original indent, continue writing
+  # Indentation rules in Python：Code with the same indentation is considered the same block
+```
+
+Question： Find the prime number in 1-15
+
+Rule: Find a number, divide 2 to sqrt (this number) by a number. If it can be divided by an integer, it indicates that this number is not a prime number. Otherwise it is a prime number.
+
+for example: 6 can be divide by 3
+
+```
+from math import sqrt
+leap =1　
+for i in range(1,15):
+    k = int(sqrt(i+1))
+    for j in range(2,k+1):
+        if(i % j == 0):
+            leap =0
+            break
+    if(leap ==1):
+        print(i)
+    leap =1 
 ```
 
 
@@ -661,6 +694,8 @@ else:
 ```python
 #For cycle is  a loop , we can get all the elements from a sequence,such as list/dict
 lst = list(range(5)) # 0,1,2,3,4
+#1 in range:range(start,stop,step)   default value for start is 0;if there is only 1 parameterx the int list value sorted from o to x-1; step is the growth value of each cycle sequence
+# 2 in list
 for i in lst[::2]: #slicing
     print(i)
 ```
@@ -668,6 +703,7 @@ for i in lst[::2]: #slicing
 
 
 ```python
+# 3in dic
 dic1 = {'Tom':'18','Jack':'19','Alex':'20','Mary':'21'}
 for i in dic1:
     print(dic1[i])
@@ -681,7 +717,9 @@ for i in range(3):  #underline is ok
         print(i,k)   #we should not use nest loop too much, no more than 3 time 
 ```
 
-#practice: write a for cycle ,try to output even number which is no more than 10
+#practice: 
+
+1.write a for cycle ,try to output even number which is no more than 10
 #0,2,4,6,8
 
 ```
@@ -691,14 +729,57 @@ for i in range(10):
 print("That is the even number")
 ```
 
+2."Narcissistic number" is a three digit number， The sum of each digit cube is equal to the number itself. 
 
+For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.
+
+Please get all the "Narcissistic number" from 100 - 1000
+
+```
+for i in range(100,1000):  #IF I = 153
+   a = i // 100  #1
+   b = i %10 // 10 #5
+   c = i%10 #3
+   if(a**3 + b**3 + c**3 == i):
+       print(i)
+```
 
 
 - while cycle
 
-```python
-# while-else
+while cycle construct a structure similar to an infinite loop or use it in a loop with an uncertain times.
+
 ```
+count = 0
+while count < 10:
+    print("The count is ",count)
+    count = count+1
+print("Good bye",count)
+#  count < 10is a judgement statement, when the result is true. 
+#It will get into the function body and countinue to run
+```
+
+
+
+```python
+# Infinite loop：if a judgement statement never change to false，The loop will execute indefinitely
+# we must aviod infinite loop
+var =1
+while var == 1:
+    num = input('enter the number here')
+    print('you entered ',num)
+    
+# while-else
+#while-else === the same as if-else
+count = 11
+while count < 10:
+    print("The count is ",count)
+    count = count+1
+else:
+    print("The count is greater than 10",count)
+```
+
+
 
 Practice：
 
@@ -714,36 +795,199 @@ while i<10:
 
 
 
-   2."Narcissistic number" is a three digit number， The sum of each digit cube is equal to the number itself. 
-
-For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3. And 3 raised to the power of 3 is 27， 125 is the cube of 5.    
-
-1* 1* 1 = 1  3 * 3* 3 =27 5* 5*5 = 125      1+27+125 =153
-
-- range(start, limit, delta=1,dtype=None)
-
-```
-153 // 10
-153 // 10 % 10
-153 % 10
-```
-
-
-
 
 - Loop control statement
 
-The **break statement** ends the current loop and jumps to the statement immediately following the loop.
+The **break ** statementends the current loop and jumps to the statement immediately following the loop.
 
 **Continue** ends the current interation and jump to the top of the loop and starts the next interation.
+
+**pass** is an empty statement, it keep the integrity of the program structure 
+
+```python
+# 1.break statement:So break will terminate a loop
+s = 0
+n = 1
+while n > 0:
+    s = s+n
+    n = n+1
+    if(n == 5):
+        break
+        print('abc')
+print(n,s) 
+# nested loop
+s = 0
+for  i in range(10): #i
+    for j in range(5):
+        print(i,j)
+        s = s + (i*j)
+    if s > 20:
+        break #break statement stop execution of the deepest loop
+        #and start executing the next line of code
+#2 continue
+i = 1
+while i<10:
+    i +=1 # i =4
+    if i%2 ==0:
+        print("it is even number",i)
+    else:  
+        continue#i =3
+# countinue tell the programme to skip the remaining statement of the current loop
+#and then proceed to the next cycle
+        print("it is odd number",i)
+#3 pass
+for  letter in 'welcome':
+    if letter == 'm':
+        pass # it neither break nor skip the loop
+        print("the current letter is m")
+    print("the current letter is ",letter)
+print("Goodbye")
+```
+
+practice:
+
+1. run the code below on your computer, and see the result  
+
+```
+s = 0
+for i in 'helloworld,hello Jakarta':
+    if i == 'w':
+        pass #try to continue to see what happened
+        print('now it is w，but I pass')
+    elif i == 'd':
+        print('now it is d，but I break')
+        break
+    print('now it is %s'%i)
+print('The end')
+```
+
+2.Try to find all the even number in 1-20, and calculate the sum of all the even number
+
+```
+
+```
+
+### 3.4  Flow chart 
+
+PyFlowchart is a package to：
+
+- write flowchart in Python,
+- translate Python source codes into flowchart.
+
+https://github.com/seflless/diagrams#flowchart
+
+https://gitee.com/cdfmlr/pyflowchart#https://github.com/francoislaberge/diagrams/#flowchart
+
+**step1**: install the third-part package:pip3 install pyflowchart
+
+![1](C:\Users\everi\Desktop\Code\Python\Py2021\image\222.png)
+
+**step2:** define python code ,store it on the desktop change py into flow chart syntax  ,  
+
+```sh
+python -m pyflowchart test.py
+```
+
+```flow
+op2=>operation: s = 0
+cond5=>condition: for i in range(10)
+cond38=>condition: for j in range(5)
+sub47=>subroutine: print(i, j)
+op49=>operation: s = (s + (i * j))
+cond54=>operation: break if  (s > 20)
+
+op2->cond5
+cond5(yes)->cond38
+cond38(yes)->sub47
+sub47->op49
+op49(left)->cond38
+cond38(no)->cond54
+cond54->cond5
+```
+
+**step3:** change language type into flow
+
+```flow
+st=>start: Start
+op=>operation: Your Operation
+cond=>condition: Yes or No?
+e=>end
+
+st->op->cond
+cond(yes)->e
+cond(no)->op
+```
 
 
 
 ## 4. Strings
 
+```python
+#signle quotation/ double quotation
+#Escape character
+# \" double quotation, \' single quotation, 
+#\n create a new line,the cursor move to the head of new line
+# \\ back slash        \t tab key,auto-indents 
+print(r"D:\Course")  # means remov escape character
+a = "hello world"
+print(len(a))
+```
 
 
 
+```python
+#replace
+a =  'I\'m perfect good,good,good,enough'
+b = a.replace('good','perfect',2) 
+#replace(old,new,count) the third parameter is an optional parameter
+#it indicates how many times it changes
+
+#
+#split(obj)
+d = '00001_01_01_109.png '
+c = d.split('_')   # change string type into list
+
+#join(list), connect the list into string
+e = '\\'.join(c)
+print(c,e)
+```
+
+
+
+```python
+f ='helloworld      '
+print(f.rstrip())
+#startswith()   #isalpha
+#Judge the beginning or end:startswith，endswith
+#isalnum contain 0-9 letter，upper,lower，swapcase,
+#capitalize,isnumeric,isalpha,rstrip :delete trail space
+```
+
+
+
+```python
+#Format character, insert variable in string
+today = 9.23
+tomorrow =  '9.24'
+print("today is %.3f ,tomorrow is %s"%(today,tomorrow))
+#   %s-  string, %i- int ,%f-  float ,%e- scientific counting method   
+print("{} is perfect".format('Daniel'))
+print("{0},{2},{1} is perfect".format('Daniel','David','Julina'))
+```
+
+
+
+
+
+pratice:
+
+-  what is the output ：33+"22"; 33+int("22"); "22" + str(55);
+-  m=“a,b,c”,m.split() what will happen？（without ","）
+-  what is the output type of .split and .join 
+-  If I need to output %f, how to do？
+-  print("abc%s") % "nn"  #print("abc%s" % "nn")
+-  print(245%f % 123)  # '245%f'%123
+-  How to change the filename from   00001_01_01_109.png  into   00001_01_01/109.png
 
 ## 5. Functions
 
@@ -918,3 +1162,5 @@ Exam method: Big Project   Total Score: 100 Points
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **Test Case Coverage **  （25 Points）                       | **Test Case Details**  （25 Points）                         | **Tool usage** （25 Points）                                 | **Reporting** （25 Points）                                  |
 | Be able to understand based knowledge. Include data analysis and display. | The code implementation design is appropriate for specific requirement. The objective  and steps are clear.  And a document is required. | Be able to use Pycharm and Jupiter. Package installation and version  control correctly. | Application can be described clearly. Status, severity and other  attributes are correct. |
+
+# 20 minutes break, back time 15.20
