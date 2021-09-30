@@ -977,8 +977,6 @@ print("{0},{2},{1} is perfect".format('Daniel','David','Julina'))
 
 
 
-
-
 pratice:
 
 -  what is the output ：33+"22"; 33+int("22"); "22" + str(55);
@@ -989,27 +987,246 @@ pratice:
 -  print(245%f % 123)  # '245%f'%123
 -  How to change the filename from   00001_01_01_109.png  into   00001_01_01/109.png
 
+Lesson-review:
+
+ 3keywords, break\Continue\pass
+
+string:split\join 000002_03_01
+
 ## 5. Functions
 
 ### 5.1 Basic concept of functions
 
-
+In the process of programming, the repeated statements can be extracted and written as functions, which makes the program structure clear and easier to maintain.
 
 - Basic function
 
-
+```python
+def functionName(params): #colon must be written
+    block                 # function body
+    return  value/expression #return is optional,return statement exit the function and get a expression. If a function donot have return statement,it will return None, that means return None/return
+```
 
 - return statement
 
-
+```python
+def f1(x):
+    y = 2 ** x
+def f2(x):
+    y = 2 ** x
+    return y
+print(f1(2))
+print(f2(2))
+```
 
 - parameter
 
+```python
+def hello(name,age):
+    print(name+" is "+str(age)+" years old")
+hello("Jack",18)
 
+#default parameters
+def hello(name, age= 18):
+    print(name+" is "+str(age)+" years old")
+hello("Jack",19) 
+
+#practice
+def mult(x, y= 2):
+    return x*y
+mult(2,3)
+mult(2) #default parameters is 2, if you do not give a new value, 2 will previal
+
+#variable parameters:If there are serveral parameters 
+#or the number is uncertain,we can use * instead
+def f(*x):
+    print(x)
+    return x  #tuple
+f("2","2",["abc","def"])
+```
+
+
+
+```python
+# Guessing numbers: The requirements are as follows：
+# Randomly generate an integer in 0-100
+# Guess a number and enter it,Judge whether it is big or small until you guess correctly
+import random
+import math
+y = random.random()*100  #0-100
+z = math.ceil(y)    #int type
+def Guess():
+    while True:
+        x = int(input("please input your number x = "))
+        if x ==z:
+            print("Right")
+            break
+        else:
+            if x > z:
+                print("Too big")
+            else:
+                print("Too small")
+    print("Congratulation")
+Guess()
+```
 
 ### 5.2 Local and global variables
 
+variables define inside of function is local variables, it has local  scope. variables define outside of function is global variables, it has global scope. local variables can be only used inside of a function, while  global variables can be accessed throughout the program
+
+```python
+a = "abc"  #global
+def f(x):
+    global a  #global
+    a = "hello everyone" #local
+    print("local variables in function %s"%m)
+f(a)
+print(a)
+
+
+#1Fibonacci sequence is a sequence like this：[0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55....]
+#That means F[a] = F[a-1] + F[a-2], Try to get the top 5 values in Fibonacci sequence 
+#F0 = 0     (n=0)    #F1 = 1    (n=1)      #Fn = F[n-1]+ F[n-2](n=>2)
+def fib(n):
+    if n==1:
+        return [1]
+    if n==2:
+        return [1,1]
+    fibs = [1,1]
+    for i in range(2,n):
+        fibs.append(fibs[-1]+fibs[-2])
+    return fibs
+print(fib(5))
+
+#Answer 2：
+def fib(n):
+    a,b =1,1
+    for i in range(n-1):
+        a,b = b,a+b
+    return a
+for i in range(1,8):   
+    print(fib(i))
+#Answer 3：Recursive function
+def fib(n):
+    if n==1 or n==2:
+        return 1
+    return fib(n-1)+fib(n-2)
+print (fib(10))
+```
+
 ### 5.3 Anonymous function( lambda )
+
+```python
+def fun(a,b,c):
+    return a+b+c
+print(fun(1,2,3))
+#lambda expression / Anonymous function
+f = lambda a,b,c:a+b+c 
+#lambda is not requie function name, the body of lambda is an expression
+#It only has one line, only the limited logic can be written in lambda expression
+print(f(1,2,3))
+```
+
+
+
+practice:
+
+①Create an anonymous function to find the number of elements 
+
+```python
+list1 = [1,2,3,45,7,89,0] #7    length
+f1 = lambda lst:len(lst)
+f1(list1)
+```
+
+② Define a function to sort all input numbers from large to small
+
+```python
+# sort   sorted
+f2 = lambda lst:sorted(lst,reverse=True)
+f2(list1)
+```
+
+
+
+### 5.4 Others
+
+#### 5.4.1 Common built-in functions
+
+```python
+list1 = [1,2,3,45,7,89,0]
+help(abs)  #
+abs(-1) #Return the absolute value of the argument.
+print(max(list1),min(list1),sum(list1))
+sorted(list1) # 
+len(list1)
+round(3.1415926,4) #get the float number in fixed length
+divmod(12,3) #return the division and remainer  (x//y, x%y) 
+```
+
+#### 5.4.2 Line function
+
+ Line function is also called list parsing or list comprehension，the structure is as followed:
+
+```
+[expression1 for k in if expression2]
+```
+
+```python
+#line function  [expression1 for k in if expression2]
+list2 = [1,2,3,4,5]
+a = [k+2 for k in list2 if k%2==0]
+print(a)
+[(x,y) for x in range(3) for y in range(3)] #more limitation
+```
+
+#### 5.4.3 filter
+
+filter(function(),s) 
+
+```python
+#filter get each of element in list and assign to function, 
+#it can be used to filter list then return the result as a new list
+def is_odd(n):
+    return n%2 ==1
+list(filter(is_odd,[1,2,4,5,6,9,15]))
+```
+
+#### 5.4.4 Map
+
+Map get each of element in list and assign to function,  And then return the result as a new list
+
+```
+def is_odd(n):
+    return n%2 ==1
+list(map(is_odd,[1,2,4,5,6,9,15]))
+```
+
+map return the result, however filter get out data for scope
+
+####  5.4.5 reduce
+
+```
+reduce(f,[x1,x2,x3,x3]) =f(f(f(x1,x2),x3) ,x4)
+```
+
+```
+from functools import reduce
+def add(x,y):
+    return x+y
+reduce(add,[1,2,3,4]) # add(1,2) = add(3,3) = add(6,4)
+```
+
+
+
+pratice:
+
+```python
+#Q1：In 1, 2, 3 and 4 . How many different two digits can be formed without repeated numbers, like 12\23\13\34...? How much is it?
+
+#Q2:Input three integer x, y and Z. please output these three numbers from small to large. 
+#limitation:You need to  use input\isdigit function. (judge whether the input data is a number)
+```
 
 
 
@@ -1163,4 +1380,4 @@ Exam method: Big Project   Total Score: 100 Points
 | **Test Case Coverage **  （25 Points）                       | **Test Case Details**  （25 Points）                         | **Tool usage** （25 Points）                                 | **Reporting** （25 Points）                                  |
 | Be able to understand based knowledge. Include data analysis and display. | The code implementation design is appropriate for specific requirement. The objective  and steps are clear.  And a document is required. | Be able to use Pycharm and Jupiter. Package installation and version  control correctly. | Application can be described clearly. Status, severity and other  attributes are correct. |
 
-# 20 minutes break, back time 15.20
+# 
