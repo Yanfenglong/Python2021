@@ -1236,27 +1236,160 @@ Object Oriented Programming(OOP) is a programming method through defining functi
 
 ### 6.1 Define a class
 
+We can use classes to define and represent models with the **same** **attributes** and **capabilities**, the structure is as followed:
 
+```
+class <ClassName>:
+```
+
+The methods in the class are basically the same as the functions in lesson 5. But there are some differences：
+
+1. The first parameter of the method must be ’self ‘，and cannot be omitted(when we use method we do not need to provide the self parameter)；
+2. Method calls need to instantiate a class.  And in the form of instance name. method name (parameter list);
+3. The overall indentation indicates the content belonging to the class.
+
+https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC
 
 #### 6.1.1 Class Properties
 
+Python built-in class properties
+
+- __ name__ is  class name
+- __ module__ is  class module
+
+- __ dict__  is  class properties
+
+practice：
+
+1. What is the following code output,why
+
+```python
+class People(object):
+   def __init__(self):
+       print("__init__")
+   def __new__(cls, *args, **kwargs):   #__ new__ () usually returns an instance of this class,   change name to new1 
+       print("__new__")
+       return object.__new__(cls, *args, **kwargs)
+People()
+```
+
+2. supplementary code to performs the following methods class_foo/static_foo
+
+```python
+class A(object):
+   def foo(self, x):
+       print("executing foo(%s, %s)" % (self,x))
+   @classmethod
+   def class_foo(cls, x):
+       print("executing class_foo(%s, %s)" % (cls,x))
+   @staticmethod
+   def static_foo(x):
+       print("executing static_foo(%s)" % (x))
+a = A()
+a.class_foo('data1')  #result：executing class_foo(<class '__main__.A'>, data1)
+A.class_foo('data2')  #result：executing class_foo(<class '__main__.A'>, data2)
+```
+
+3. Write a Student Class that requires counter attribute . It can count the total number of students instantiated
+
+```
+class Student:
+    count = 0
+    @classmethod
+    def __init__(cls):
+        cls.count += 1
+a1 = Student()
+a2 = Student()
+a3 = Student()
+a4 = Student()
+print(Student.count)
+```
 
 
-#### 6.1.2 Member methods and static methods of class
+
+#### 6.1.2 Extends
+
+Subclasses cannot inherit private properties and private methods of the parent class， Subclasses can overload the methods of the parent class , it can  achieve different  representations or capabilities of the parent class. 
+
+#### 6.1.3 Member methods and static methods of class
+
+- Instance method, 
+- Class method，It can be called directly by the class name or by an instance.  
+- **classmethod** functions do not need to be instantiated，do not need self . 
+- Static method，It can be called directly by the class name @staticmethod
+- This method does not force parameters to be passed
+
+practice：
+
+1. What is the following code output,why
+
+```
+class Parent(object):
+  	x = 1
+class Child1(Parent):
+    pass
+class Child2(Parent):
+    pass
+print(Parent.x, Child1.x, Child2.x) 
+Child1.x = 2
+print(Parent.x, Child1.x, Child2.x)
+Parent.x = 3
+print(Parent.x, Child1.x, Child2.x)
+```
 
 
-
-#### 6.1.3 Extends
 
 ### 6.2 Module creation and introduction
 
+- When the program is simple,we can write the code in a file
 
+- When the code is too long or too large, you need to put the project into different files according to function.  Different code files are different modules
+
+  
+
+Module is a python file end with .py，it contains Python object definitions and statements
 
 ### 6.3 Package
 
-
+A package is a folder or directory ，it must contain a  _init _.py file，However, any part of the import package will execute the file, and the variables and functions will be imported automatically
 
 ### 6.4 Closure function
+
+- Closure is the object obtained by packaging the function  statements and the execution environment of these statements. 
+- Using closures can flexibly implement other functions that are not easy to implement in syntax
+
+Practice： change image to text file
+
+```
+#!/usr/bin/env python
+# coding: utf-8
+
+import numpy as np
+from PIL import Image
+
+if __name__ == '__main__':
+    image_file = '3.jpg'
+    height = 100#change image height to 100
+
+    img = Image.open(image_file)
+    img_width, img_height = img.size
+    width = 2 * height * img_width // img_height    
+    img = img.resize((width, height), Image.ANTIALIAS)#change image size
+    pixels = np.array(img.convert('L')) 
+    print(pixels.shape)
+    print(pixels)
+    chars = "MNHQ$OC?7>!:-;. " #256 color,M means 0-15，N means 16-31
+    N = len(chars)
+    step = 256 // N
+    print(N)
+    result = ''
+    for i in range(height):
+        for j in range(width):
+            result += chars[pixels[i][j] // step]                          
+        result += '\n'
+    with open('text.txt', mode='w') as f:
+        f.write(result)
+```
 
 
 
