@@ -1242,22 +1242,80 @@ We can use classes to define and represent models with the **same** **attributes
 class <ClassName>:
 ```
 
+We call  **attributes** as property/attribute and **capabilities** are method/function.  for example,  a person has properties like height, age, name, and he can run/eat/smile.
+
 The methods in the class are basically the same as the functions in lesson 5. But there are some differences：
 
 1. The first parameter of the method must be ’self ‘，and cannot be omitted(when we use method we do not need to provide the self parameter)；
 2. Method calls need to instantiate a class.  And in the form of instance name. method name (parameter list);
 3. The overall indentation indicates the content belonging to the class.
 
-https://www.jetbrains.com/pycharm/download/download-thanks.html?platform=windows&code=PCC
+```python
+class MyClass:
+    def info(self):
+        print('The class I defined')
+    def mycalc(self,x,y):
+        return x+y
+mc = MyClass()
+mc.info()
+print(mc.mycalc(3,5))
+```
 
 #### 6.1.1 Class Properties
 
-Python built-in class properties
+There are two types of properties：
 
-- __ name__ is  class name
-- __ module__ is  class module
+- Instance properties ：Different instances values  of the same class are not associated，'self. attribute name' is used when defining and when calling.
+- Class properties ：common to all instances
 
-- __ dict__  is  class properties
+```python
+class Demo_property:
+    class_name = "Demo_property"     #Class properties,as long as an instance modifies it, it will affect all other instances
+    def __init__(self,x=0):          #__init__ is a special function, we can call it init function/constructor. When a instance is created, it will be called automaticlly
+        self.x = x                   #Instance properties，it will not affect others
+    def info(self):
+        print(Demo_property.class_name) #Class properties value
+        print(self.x)                   #Instance properties value
+    def change1(self,x):
+        self.x = x
+    def change2(self,name):
+        Demo_property.class_name = name
+    def change3(cls):
+    	print('change3 %s'%cls.bar)
+    	cls().info()    #call info function
+dpa = Demo_property()
+dpb = Demo_property()
+dpa.info()
+dpa.change2("3")
+dpa.info()
+```
+
+- Python built-in class properties
+
+  - __ name__ is  class name
+  - __ module__ is  class module
+
+  - __ dict__  is  class properties
+
+```python
+class Demo_property:
+    class_name = "Demo_property"     #Class properties,as long as an instance modifies it, it will affect all other instances
+    def __init__(self,x=0):          #__init__ is a special function, we can call it init function/constructor. When a instance is created, it will be called automaticlly
+        self.x = x                   #Instance properties，it will not affect others
+    def info(self):
+        print(Demo_property.class_name) #Class properties value
+        print(self.x)                   #Instance properties value
+    def change1(self,x):
+        self.x = x
+    def change2(self,name):
+        Demo_property.class_name = name
+    def change3(cls):
+        print('change3 %s'%cls.bar)
+        cls().info()    #call info function
+print(Demo_property.__name__)          #
+print(Demo_property.__module__)
+print(Demo_property.__dict__ )
+```
 
 practice：
 
@@ -1309,15 +1367,77 @@ print(Student.count)
 
 #### 6.1.2 Extends
 
-Subclasses cannot inherit private properties and private methods of the parent class， Subclasses can overload the methods of the parent class , it can  achieve different  representations or capabilities of the parent class. 
+Subclasses cannot inherit private properties and private methods of the parent class（Prefixed with two underlines）， Subclasses can overload the methods of the parent class , it can  achieve different  representations or capabilities of the parent class. 
 
-#### 6.1.3 Member methods and static methods of class
+```python
+class Dog:
+    def __init__(self,x=0,y=0,color='yellow'):  #constructor
+        self.x = x
+        self.y = y
+        self.color = color
+    def crawl(self,x,y):
+        self.y = y 
+        print('The current position:(%d,%d)' % (self.x,self.y))
+    def attack(self):
+        print('Use teetch')
+class Haski(Dog):                         #Extends
+    def attack(self):                     #Method overloading
+        print('Use teetch and Smile')
+haski = Haski(color='white')
+haski.crawl(3,8)
+haski.attack()
+```
 
-- Instance method, 
-- Class method，It can be called directly by the class name or by an instance.  
-- **classmethod** functions do not need to be instantiated，do not need self . 
+Multiple inheritance ：class Sub(Dog, Haski)
+
+#### 6.1.3 Member methods and static methods
+
+- Instance method, All previous class methods are instance methods
+- Class method，It can be called directly by the class name or by an instance.  annotation @classmethod
+- **classmethod** functions do not need to be instantiated，do not need self . However, the first parameter needs to be the cls , representing its own class, which can call the properties, methods and instantiated objects. 
+
+```python
+class Demo_property:
+    class_name = "Demo_property"     #Class properties,as long as an instance modifies it, it will affect all other instances
+    def __init__(self,x=0):
+        self.x = x                   #Instance properties，it will not affect others
+    def info(self):
+        print(Demo_property.class_name) #Class properties value
+        print(self.x)                   #Instance properties value
+    def change1(self,x):
+        self.x = x
+    def change2(self,name):
+        Demo_property.class_name = name
+    @classmethod
+    def change3(cls):
+        print('change3 %s'%cls.class_name)
+        cls().info()    #call info function
+Demo_property.change3()
+```
+
+
+
 - Static method，It can be called directly by the class name @staticmethod
 - This method does not force parameters to be passed
+
+```python
+class Demo_property:
+    class_name = "Demo_property"     #Class properties,as long as an instance modifies it, it will affect all other instances
+    def __init__(self,x=0):
+        self.x = x                   #Instance properties，it will not affect others
+    def info(self):
+        print(Demo_property.class_name) #Class properties value
+        print(self.x)                   #Instance properties value
+    def change1(self,x):
+        self.x = x
+    def change2(self,name):
+        Demo_property.class_name = name
+    @staticmethod
+    def change3(arg1):
+        print('change3 %s'%arg1)
+        
+Demo_property.change3('hello')
+```
 
 practice：
 
@@ -1342,12 +1462,75 @@ print(Parent.x, Child1.x, Child2.x)
 ### 6.2 Module creation and introduction
 
 - When the program is simple,we can write the code in a file
-
-- When the code is too long or too large, you need to put the project into different files according to function.  Different code files are different modules
-
-  
+- When the code is too long or too large, you need to put the project into different files according to function.  Different code files are different modules（Each py file is a module）
+- When the  code complexity get increased, you need to put different codes into different folders, and they can refer to each other, that is package.
 
 Module is a python file end with .py，it contains Python object definitions and statements
+
+```python
+def f1(n):
+    y = 1
+    for i in range(1,n+1):
+        y = y * i
+    return y
+# Create factorial function f1(n)
+
+def f2(lst,x):
+    while x in lst:
+        lst.remove(x)
+    return lst
+# Create a function can delete element in list,  f2(lst,x)
+
+def f3(a,d,n):
+    an = a
+    s = 0
+    for i in range(n-1):
+        an = an + d
+        s = s + an
+    return s
+# Create a summation function f3(a,d,n)
+# Create a module 'testmodel2'，it include three functions
+```
+
+- Call module
+
+```
+import testmodel2
+# Call the module directly with import   print(testmodel2.f1(5))   
+print(testmodel2.f2([2,3,4,5,5,5,6,6,4,4,4,4],4))
+print(testmodel2.f3(10,2,10))
+
+```
+
+Simplified module name ：import...as..(import testmodel2 as tm2)
+
+Call some module statements ：From…import (Some functions of modules are imported separately, but other functions are not imported)
+
+```python
+# python standard module —— random number
+import random
+x = random.random()
+y = random.random()
+print(x,y*10)
+# random.random() [0:1) 
+m = random.randint(0,10)
+print(m)
+# random.randint()  [0:10] 
+st1 = random.choice(list(range(10)))
+st2 = random.choice('abcdnehgjla')
+print(st1,st2)
+# random.choice() Randomly get an element in (), which must be an ordered type
+lst = list(range(20))
+sli = random.sample(lst,5)
+print(sli)
+# random.sample(a,b)   Randomly obtain a fragment with the of b in a, without changing the original sequence
+lst = [1,3,5,7,9,11,13]
+random.shuffle(lst)
+print(lst)
+# random.shuffle(list)Scramble elements in a list
+```
+
+
 
 ### 6.3 Package
 
