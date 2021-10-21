@@ -1530,8 +1530,6 @@ print(lst)
 # random.shuffle(list)Scramble elements in a list
 ```
 
-
-
 ### 6.3 Package
 
 A package is a folder or directory ，it must contain a  _init _.py file，However, any part of the import package will execute the file, and the variables and functions will be imported automatically
@@ -1574,26 +1572,182 @@ if __name__ == '__main__':
         f.write(result)
 ```
 
+Lesson6 - review:
+
 
 
 ## 7. File and Exception
 
+excel /CSV/txt
+
 ### 7.1 Document declaration and basic operation
 
-excel/csv
+```python
+import os   #operating system
+#    \t    escape character
+path1 = r"C:\Users\everi\Desktop\Code\Python\Py2021"         #We use r to prevent character escape
+path2 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021"    #2 back slashes \\
+path3 = os.path.dirname(os.path.abspath('__file__'))          #directory 
+print(path3)
+```
+
+- read / write something in the txt file
+
+```python
+path4 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\hello.txt"    #2 back slashes \\
+f = open(path4, 'r')  #mode:  r means read, w means write,  encoding ='utf8'
+#print(type(f))
+#print(f)
+print(f.read())#output the content, after this cursor is in the end of file 
+print("reading completed")
+f.seek(0)  #move the cursor to the begining of the file
+print(f.read())
+f.close()  #close the IO operation
+```
+
+
 
 ### 7.2 System module path 
 
+```python
+import os   #operating system
+path5 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021"         #directory 
+#print(os.name)  #nt means windows, Linux/unix 'posix'
+#print(os.listdir())  #file and directory name
+#print(os.getcwd())  #current work directory
+#os.remove('a.txt')
+print(path5)
+os.chdir(r'C:\Users\everi\Desktop\Code\Python')  #change the directory to a target directory
+print(os.getcwd())  #current work directory
+print(os.path.exists(r"C:\Users\everi\Desktop\Code\Python\Py2021\hello.txt")) 
+print(os.path.split(r"C:\Users\everi\Desktop\Code\Python\Py2021\hello.txt"))
+# return the directory name,and file name
+```
+
 ### 7.3 Files reading and writing 
 
-
-
 -  Files reading
-- Files writing 
+   -  read()  output the content, after this cursor is in the end of file
+   -  readlines()  get the content line by line
+
+```python
+#File reading 
+path6 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\hello.txt" #2 back slashes \\
+f = open(path6, 'r')  #mode:  r means read, w means write,  encoding ='utf8'
+f.seek(0)
+#print(f.readline(4))  #first 4 characters of a line
+#print(f.readlines())
+for line in f.readlines():
+    print(type(line),line)
+```
+
+-  Files writing 
+   -  write()  write string into the file
+   -  writelines()  list into the file 
+
+```python
+#File writing 
+path7 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\test.txt"    #2 back slashes \\
+#create an empty file 'test.txt',and add the content "hello world" inside of it
+f = open(path7, 'w',encoding ='utf8')  #change the mode
+f.write("hello world")
+f.close() #close writing operation
+print("finished")
+```
+
+
+
+```python
+path8 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\test.txt"   
+f = open(path8, 'w',encoding ='utf8')  
+lst = ['a','b','c','d','e']
+f.writelines(lst)
+f.close() #close writing operation
+print("finished")
+```
+
+practice:
+
+1. write a file. the style is line by line. 
+
+    ['a\n','b\n','c\n','d\n','e\n'] this kind is a little complex, we can use for loop to write the content line by line
+
+```python
+path9 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\test.txt"   
+f = open(path9, 'w',encoding ='utf8')  
+lst = ['a','b','c','d','e','f'] 
+for i in range(len(lst)):  #0 to 4
+    lst[i] = lst[i]+'\n'  # change style from ['a','b','c','d','e']  to ['a\n','b\n','c\n','d\n','e\n']  
+f.writelines(lst)
+f.close() #close writing operation
+print("finished")
+```
+
+2. There are 2 list [1 to 10 ], [a to j]. Please write a out.txt file to make the content format like this:
+
+```
+1,a
+2,b
+3,c
+.....
+10,j
+```
+
+```python
+path10 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\out.txt"   
+f = open(path10, 'w',encoding ='utf8')  
+lst1 =  list(range(1,11))  #
+lst2 =  ['a','b','c','d','e','f','g','h','i','j']
+for i in range(len(lst1)):  #10 elements
+    out = [str(lst1[i]),',',lst2[i],'\n'] 
+    f.writelines(out)
+f.close() #close writing operation
+print("finished")
+```
 
 - with statement
 
+With statement can ensure the clear up IO operation, it will automatically close the IO operation
+
+```python
+os.chdir(r'C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\')  #change the directory to a target directory
+with open('test.txt') as file:
+    data = file.read()
+    print(data)  #automaticlly close the IO operation
+#style 2
+try:
+    f = open()
+except:
+    exit(-1)
+finally:
+    f.close()
+```
+
 ### 7.4 pickle
+
+- store
+
+```python
+import pickle
+data = {'a':[1,2,3,4],'b':('hello','world'),'c':'word'}
+path11 = "C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\data.pkl"   
+f = open(path11, 'wb') #mode: w  wb  , write binary
+pickle.dump(data,f)
+f.close()
+#dump
+```
+
+- read
+
+```python
+#load function
+f = open(path11, 'rb') #mode:rb   read binary
+st = pickle.load(f)
+print(st)
+print('finished')
+```
+
+
 
 ## 8. Common packages
 
@@ -1697,3 +1851,4 @@ Exam method: Big Project   Total Score: 100 Points
 | Be able to understand based knowledge. Include data analysis and display. | The code implementation design is appropriate for specific requirement. The objective  and steps are clear.  And a document is required. | Be able to use Pycharm and Jupiter. Package installation and version  control correctly. | Application can be described clearly. Status, severity and other  attributes are correct. |
 
 # 
+
