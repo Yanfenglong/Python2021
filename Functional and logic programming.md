@@ -1747,25 +1747,585 @@ print(st)
 print('finished')
 ```
 
+## Project:Lesson-8
+
+```python
+'''
+【Project 1】  Shop data loading and storage
+
+Requirment：
+1、read csv file “shop1.csv”
+2、Data cleaning：
+① cleaning comment and price into number style:
+	
+② commentlist can be splited into three float fields，return [flavor,environment,service]
+
+③ Clear missing data
+3、Parse data，Save as list dictionary format[{'var1':value1,'var2':value2,'var3':values,...},...,{}]
+    [{'classify': 'food', 'name': 'HARSON', 'comment': 'No  comments', 'star': 'no star', 'price': 125},
+    {'classify': 'food', 'name': 'BeLLE', 'comment': '74', 'star': 'four star', 'price': 48},
+    {'classify': 'food', 'name': 'achette', 'comment': '265', 'star': 'four star', 'price': 21},
+    ......
+    ]
+4、Store the new data into data.pkl file.
+
+'''
+```
+
+
+
+```python
+#Step1. Open the file, and get all the columns information
+f= open(r'C:\Users\everi\Desktop\shop1.csv','r',encoding='gbk')
+for i in f.readlines()[:5]:
+     print(i.split(',')[2]) # 5/-1 commentlist information ,star 
+#     print(i.split(',')) #top 4 lines , all the data information
+#cursor return to the first line
+
+```
+
+
+
+```python
+#Step2 :cleaning comment into number style
+def fcm(s):
+    if 'comments' in s:
+        return s.split('                    ')[0] #[400 ,comments]
+    else:
+        return ('ABCNo comments')
+#cleaning price into number style    # [average-spend,291]
+def fpr(s):
+    if '￥' in s: #291
+        return s.split('￥')[-1]
+    else:
+        return ('ABCNo  average-spend ')
+#cleaning commentlist information
+def fco(s):
+    if len(s)==3:
+#         flavor, environment,service=  s[0],s[1],s[2]
+#         production = float(s[0][6:]) #flavor is not the correct, there are other types
+        environment = float(s[1][11:])
+        service = float(s[2][7:])
+        return [environment,service]  #['flavor8.3', 'environment8.4', 'service8.5\n']
+    else:
+        return ('ABCNo commentlist')
+f.seek(0)
+for i in f.readlines()[:5]:
+    cm = fcm(i.split(',')[2])
+    pr = fpr(i.split(',')[4])
+    co = fco(i.split(',')[-1].split('                                '))
+    print(co) 
+```
+
+
+
+```python
+#Step3 Clear missing data,Parse data，Save as list dictionary format
+datalist = []
+sum = 0
+f.seek(0)
+for i in f.readlines()[1:]:  #all the data in csv file, 1264 items
+    data = i.split(',')
+    classify,name,comment = data[0],data[1],fcm(data[2])
+    star,price = data[3],fpr(data[4])
+    commentlist = fco(i.split(',')[-1].split('                                '))
+    environment = commentlist[0]
+    service = commentlist[1]
+    if 'ABC' not in [comment,price,commentlist]:
+        sum += 1
+        #write sth
+        new_data = [
+            ["classify",classify],
+            ["name",name],
+            ["comment",comment],
+            ["star",star],["price",price],["environment",environment],
+            ["service",service]
+        ]
+        datalist.append(dict(new_data))
+    else:
+        continue
+print(datalist)
+print(sum)
+```
+
+
+
+```python
+# Step4:Store the new data into data.pkl file.
+import pickle
+f= open(r'C:\Users\everi\Desktop\data.pkl','wb')
+pickle.dump(datalist,f) #store
+f.close()
+f= open(r'C:\Users\everi\Desktop\data.pkl','rb') #read binary
+st = pickle.load(f)
+print(st)
+```
+
 
 
 ## 8. Common packages
+
+
+
+![package](D:/Course/Python/PythonDoc/image/package.png)
+
+https://pypi.org/
 
 ### 8.1 Numpy
 
 ​	 Numpy is the basic python programming library .  It provides advanced mathematical operations, it also has a very efficient vector matrix operation function 。
 
+#### 8.1.1 Random number
+
+```
+import numpy as np
+#rand(d0,d1,d2....dn)  generate a random number or an n dimensions array, 
+#all the element value is between[0,1] 
+a = np.random.rand()  #float number ,between [0,1]
+b = np.random.rand(4)  # 1 dimension, Array with 4 elements
+c = np.random.rand(2,3)# 2 dimensions with 2 rows and 3columns
+d = np.random.rand(2,3,4)#3 dimensions 
+print(d)
+```
+
+
+
+```
+samples1 = np.random.rand(1000) #uniformly distributed sample value
+samples2 = np.random.rand(1000)
+#print(samples1)
+import matplotlib.pyplot as plt
+plt.scatter(samples1,samples2)
+```
+
+
+
+```
+#randint(size)
+print(np.random.randint(3)) # from 0 to 2, but 0 is ok 2 is not included
+print(np.random.randint(3, size=5))
+print(np.random.randint(2,6, size=5)) #low =2, high = 6(not included),  5 element
+print(np.random.randint(2,6, size=(2,3)))    #2 dimensions array, with 2 rows and 3columns
+```
+
+#### 8.1.2 Basic
+
+```python
+# ar = np.array(range(10))
+# lst1 = list(range(10))
+# print(ar) #array is similar with list. but list has comma
+# print(lst1)
+ar1 = np.array([1,2,3,4,5.5, 6.3,7,8.9]) #float
+ar2 = np.array([[1,2,3],["a","b","c"]])  #2-D array
+ar3 = np.array([[1,2,3],["a","b","c","d"]])  #elements number is different
+print(ar2.shape) #(2, 3)  2 rows  and 3 cols
+print(ar2.size)  # total number 2*3 elements = 6
+print(ar1.dtype) # dtype is similar with type, type is a function, dtype is property
+print(type(ar1))
+```
+
+- linspace
+
+```python
+#linspace(start,stop,num=50,endpoint=True,dtype = None) return evenly space sample
+ar1 = np.linspace(2,3,num=5,endpoint=False)
+#endpoint=False means stop value is not included
+print(ar1)
+```
+
+- zeros/zeros_like / ones/ones_like
+
+```python
+#zeros(shape,dtype= float),return a zero array of given shape and type
+ar1 = np.zeros(5)
+ar2 = np.zeros((2,3), dtype = np.int)
+print(ar2.dtype)
+
+#zeros_like
+ar3= np.array([list(range(5)),list(range(5,10))])  #2d  array
+ar4 = np.zeros_like(ar3)
+print(ar4)
+#ones and ones_like
+ar5 = np.ones(9)
+ar6 = np.ones_like(ar3)
+print(ar6)
+```
+
+- eye
+
+```python
+#eye return a square unit matrix
+print(np.eye(5))
+```
+
+
+
+Practice： 
+
+1. Create an Array that starts with 5 and end with 14, 10 elements in this array. like:[ 5  6  7  8  9 10 11 12 13 14]
+
+```
+
+```
+
+2. Create an Array
+
+```python
+[[0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]
+ [0. 0. 0. 0.]]    2d  zeros
+ -------------------------------------------------------
+ [[[1. 1. 1. 1.]
+  [1. 1. 1. 1.]
+  [1. 1. 1. 1.]]]  3d
+  ------------------------------------------------------
+ [[1. 0. 0.]
+ [0. 1. 0.]
+ [0. 0. 1.]]       2d
+```
+
+#### 
+
+#### 8.1.3 General function
+
+```python
+# Transpose
+ar1 = np.arange(10)  
+ar2 = np.zeros((5,2)) #Transpose change the shape (5,2) to (2,5)
+print(ar2, '\n',ar2.T)
+print("-------------------Transpose---------------------------")
+ar3 = ar1.reshape(2,5)  #1.chang the existing array into another shape
+ar4 = np.zeros((4,6)).reshape(3,8) #2.create a new array and directly change into new shape
+ar5 = np.reshape(np.arange(10),(2,5)) #3 change the initial array into target shape
+print(ar5)
+print("----------------------reshape-------------------------")
+# resize
+ar6 = np.resize(ar1,(3,5))
+print(ar6)
+#Transpose\reshape\resize  all of these 3 function will create new array
+```
+
+- copy array
+
+```python
+ar1 = np.arange(10)  
+ar2 = ar1 #should not copy the array directly
+#ar2[0] = 19
+ar3 = ar1.copy() #generate a new array , the data and elements will completely copyed
+ar3[0] = 19
+print(ar1,ar3) 
+```
+
+-  calculation
+
+```python
+ar = np.arange(6).reshape((2,3))
+#print(ar**2) #+ - *  / ** power
+#print(ar.max())  #mean= average value, max, min,sum
+print(ar)
+print(np.sum(ar,axis =1))  #0 means calculate the sum by columns
+print(np.sort(np.array([1,4,2,3,7,100,8])))
+```
+
+
+
+Practice： 
+
+```
+1.create an array:
+a = [[0 1 2 3]
+ [4 5 6 7]
+ [8 9 10 11]
+ [12 13 14 15]] 
+-------------------------------------------------
+ar1 = np.reshape(np.arange(16), (4,4))
+print(ar1)
+2.create b each element value b[i][j] = a[i][j] * 10 +100，
+b = [[100 110 ...]
+...
+ [220 230 ...]] 
+ ----------------------------------------
+ # #practice
+# ar1 = np. arange(16)
+# ar6 = np.resize(ar1,(4,4))
+# ar7 = ar6*10+100
+# print(ar7)
+3.calculate the average value and sum/min/max--  average pooling /max pooling
+4.create an array with 20 element, resize it into (4,5), or (5,6)
+[[0 1 2 3 4]
+ [5 6 7 8 9]
+ [10 11 12 13 14 ]
+ [15...19]] 
+ ------------------------------------
+ arr = np.arange(20)
+print(np.resize(arr, (4, 5)))
+print(np.resize(arr, (5, 6)))
+```
+
+#### 
+
+#### 8.1.4 Numpy index and slice
+
+```
+ar = np.arange(16).reshape(2,4,2)
+#print(ar[0]) #the 1st element in 3d array -----2d
+print(ar[0][0]) #1d array 
+print(ar[0][0][0]) # value
+```
+
 
 
 ### 8.2 Pandas
 
+Pandas ：Use python like excel
+
+- Compatible with database/ Analysis algorithm
+
+- "1D array "Serise， "2D array "Dataframe  
+
+#### 8.2.1 Series
+
+- Series is a 1D array with labels that can hold any data type
+
+- Create Series
+
+```python
+#Series:1D array+ index
+# 1.Series can be created by the dict. The key of the dict is index
+dic = {'a':1,'b':2,'c':3,'4':4,'5':5}
+s = pd.Series(dic)  #keyword 
+print(s,s['a'])
+print(s[['a','c']])  #multi label index has 2 bracket
 ```
 
+
+
+```python
+# 2.Series can be created by array
+arr = np.random.rand(5)
+#s = pd.Series(arr)
+s = pd.Series(arr,index=["a","b","c","d","e"],dtype = np.object)
+print(arr,'\n',s)
+```
+
+
+
+```python
+# 3.Series can be created by scalar /number
+s = pd.Series(10,index=range(4)) #index must be provided
+print(s)
+```
+
+- data operation
+
+```python
+arr = np.random.rand(5)
+s = pd.Series(arr,index=["a","b","c","d","e"],dtype = np.object)
+print(s,'\n','-----------------')
+#print(s[1:3]) #slicing
+#print(s.head(2),s.tail()) #top /tail 5 line
+#print(s[s>0.5]) #filter / value judgement
+print(s.isnull(), s.notnull()) # value judgement
+```
+
+
+
+- Practice : 
+
+  >  1.Create a Series(name is s1) that contains 10 elements, each with a uniformly distributed random value of 0-100 and an index of a-j. 
+  >
+  >  2. please filter b，c value out in s1 
+  >  3. What are the 4th to 6th values in s1 
+  >  4. What are values greater than 50 in s1
+
+```python
+s1 = pd.Series(np.random.rand(10)*100,index=list("abcdefghij"))
+print(s1[s1>50]) #s1[["b","c"]],s[3:6]
+```
+
+
+
+- Series alignment
+
+In series, all the elements will add together automatically aligned according to labels
+
+```python
+s1 = pd.Series(np.random.rand(3),index=["a","b","c"])
+s2 = pd.Series(np.random.rand(3),index=["b","c","d"])
+print(s1,"\n",s2)
+print(s1+s2)
+```
+
+- delete：.drop
+
+```python
+s1 = pd.Series(np.random.rand(3),index=["a","b","c"])
+s2 = s1.drop(['a','c'])  #tab +shift  inplace = True
+print(s2)
+```
+
+- Add
+
+```python
+s1 = pd.Series(np.random.rand(3),index=["a","b","c"])
+s1[0] = 100 #change value
+s1['d'] = 99  #add element
+s2 = pd.Series(np.random.rand(3),index=["e","f","g"])
+s3 = s1.append(s2) #append add an array directly, do not change the previous array
+print(s3)
+```
+
+- concat
+
+```python
+# concat
+s1 = pd.Series([1,2,3],index=["a",'c','b'])
+s2 = pd.Series([2,3,4],index=['e','f',"d"])
+#print(pd.concat([s1,s2])) #row +row
+print(pd.concat([s1,s2],axis=1).sort_index()) #Dataframe
+
+# join，join_axes
+s1 = pd.Series([1,2,3],index=["a",'b',"c"])
+s2 = pd.Series([2,3,4],index=['b','c',"d"])
+print(pd.concat([s1,s2],axis=1,join = "outer")) 
+#"inner is intersection without NAN, outer is the union
+```
+
+
+
+#### 8.2.2 Dataframe
+
+Dataframe is a tabular data structure that contains a set of ordered columns whose value types can be numeric, string, Boolean, etc
+
+- create
+
+```python
+# 1 Dataframe can be created by dict(array /list)
+data1 = {"a":[1,2,3],"b":[4,5,6],"c":[7,8,9]}
+data2 = {"one":np.random.rand(3),"two":np.random.rand(3)}
+pd.DataFrame(data1,columns=["c","a","b","d"],index = ["e","f","g"])
+# 2 Dataframe can be created by Series dict
+data1 = {"one":pd.Series(np.random.rand(2)),
+         "two":pd.Series(np.random.rand(3))} #without index
+data2 = {"one":pd.Series(np.random.rand(2),index = ["a","b"]),
+         "two":pd.Series(np.random.rand(2),index = ["c","d"])}
+pd.DataFrame(data2)
+# 3 Dataframe can be created by 2d array
+ar = np.random.rand(9).reshape(3,3)
+pd.DataFrame(ar)
+# 4 Dataframe can be created by array[dict]
+data1 = [{"a":1,"b":2},{"a":5,"b":6,"c":8}]
+pd.DataFrame(data1)
+```
+
+- Practice:Use four different methods to create a dataframe (ensure that columns and index are consistent, and the value is not required)
+
+  > ```
+  >  four  one  three  two
+  > a     4    1      3    2
+  > b     5    2      4    3
+  > c     6    3      5    4
+  > d     7    4      6    5
+  > e     8    5      7    6
+  > ```
+
+```python
+df1 = pd.DataFrame({'one':[1,2,3,4,5],
+                   'two':[2,3,4,5,6],
+                   'three':[3,4,5,6,7],
+                   'four':[4,5,6,7,8]},
+                  index = list('abcde'))
+df2 = pd.DataFrame({'one':pd.Series([1,2,3,4,5],index = list('abcde')),
+                   'two':pd.Series([2,3,4,5,6],index = list('abcde')),
+                   'three':pd.Series([3,4,5,6,7],index = list('abcde')),
+                   'four':pd.Series([4,5,6,7,8],index = list('abcde'))})
+df3 = pd.DataFrame(np.arange(20).reshape(5,4), 
+                   index = list('abcde'),
+                  columns = ['one','two','three','four'])
+df4 = pd.DataFrame([{'one':1,'two':2,'three':3,'four':4},
+                   {'one':2,'two':3,'three':4,'four':5},
+                   {'one':3,'two':4,'three':5,'four':6},
+                   {'one':4,'two':5,'three':6,'four':7},
+                   {'one':5,'two':6,'three':7,'four':8}],
+
+```
+
+
+
+- Dataframe：index
+
+  Dataframe has both row and column indexes选择列 / 选择行 / 切片 / 布尔判断
+
+
+
+- df.iloc
+
+
+
+
+
+
+
+Practice : 
+
+> 1.  Create a dataframe (4row * 4 cols, random number with value of 0-100)
+> 2.  Gets all the values of in 2th and 3th columns 
+> 3.  Gets all the values of in 2th and 3th rowa
+> 4.  Gets all value greater than 50
+
+#### 8.2.3 numerical calculation and statistics
+
+```
+# axis、skipna
+```
+
+#### 8.2.4 File operation
+
+read_table, read_csv, read_excel
+
+```python
+#read txt file
+import pandas as pd
+import numpy as np
+import os
+os.chdir('C:\\Users\\everi\\Desktop\\')
+data1 = pd.read_table('data1.txt')
+print(data1)
+```
+
+Generate descriptive statistics.Descriptive statistics include those that summarize the central tendency, dispersion and shape of a dataset's distribution, excluding ``NaN`` values.Analyzes both numeric and object series, as well as ``DataFrame`` column sets of mixed data types. The output will vary depending on what is provided. 
+
+```python
+data2 = pd.read_csv('train.csv') #read_excel
+#data2.head(6)
+data2.describe() #shift+tab
+```
+
+> DataFrame.count: Count number of non-NA/null observations.
+> DataFrame.max: Maximum of the values in the object.
+> DataFrame.min: Minimum of the values in the object.
+> DataFrame.mean: Mean of the values.
+> DataFrame.std: Standard deviation of the observations.
+> DataFrame.select_dtypes: Subset of a DataFrame including/excluding
+>  columns based on their dtype.
+
+```PYTHON
+#0 is still in the company,1 means the person leave the company/Attrition
+neg_data = data2[data2['Attrition']==0] #DataFrame
+pos_data = data2[data2['Attrition']==1]
+print("Positive sample number:{},proportion{}"
+      .format(len(pos_data),len(pos_data)/len(data2)))
+print("Negative sample number:{},proportion{}"
+      .format(len(neg_data),len(neg_data)/len(data2)))
+print(len(pos_data)/len(data2)+len(neg_data)/len(data2))
 ```
 
 
 
 ### 8.3 Matplotlib
+
+8.4 S
 
 
 
