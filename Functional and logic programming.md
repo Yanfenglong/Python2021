@@ -2334,7 +2334,31 @@ https://matplotlib.org/stable/index.html
 #### 8.3.1 Basic chart drawing
 
 ```python
-
+import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif'] = [u'SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+x = [1,2,3,4,5]
+y = [2.3,3.4,1.2,6.6,7.0]  #1 d data
+plt.figure(figsize=(12,6)) #Figsize specifies the width and height(inches) of the figure object
+#divide the picture into 2*3 small ones
+plt.subplot(231) #231 means: the 1st chart in 2rows and 3cols figure
+plt.plot(x,y)     #line chart
+plt.subplot(232)
+plt.scatter(x,y) #scatter chart, dot
+plt.subplot(233)
+plt.pie(y)      #pie chart
+plt.subplot(234)
+plt.bar(x,y)   #histogram
+import numpy as np
+x=y=np.arange(-3,3,0.025)
+x,y = np.meshgrid(x,y) #chang 1d array into mesh (2d )
+z = x**2 + y**2 # ** is power. 2**3 = 8,3**2 =9
+plt.subplot(235)
+plt.contour(x,y,z) #rectangular contour
+import matplotlib.image as mpimg
+img = mpimg.imread('image\\c9.jpg')
+plt.subplot(236)
+plt.imshow(img) 
 ```
 
 <img src="D:/Course/Python/PythonDoc/image/Matplotlib1.png" alt="pig" style="zoom:80%;" />
@@ -2348,12 +2372,36 @@ plt.rcParams['axes.unicode_minus'] = False
 
 #### 8.3.2  Magic function
 
+```
+#magic function 
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+# plt.plot(np.random.rand(10)) #generate the chart directly
+# plt.show()
+#inline: normal style  /notebook: interactive window/ qt5 : pop up console
+%matplotlib qt5
+plt.scatter(np.random.rand(1000),np.random.rand(1000)) 
+```
 
+![Figure_1](C:\Users\everi\Desktop\Figure_1.png)
 
 #### 8.3.3 Basic elements of chart
 
-```
-
+```python
+df = pd.DataFrame(np.random.rand(10,2),columns=['A','B'])
+fig = df.plot(figsize=(6,4))
+plt.title("Define the title") #title
+plt.xlabel("Plot number")  #xlabel
+plt.ylabel("Random value") #ylabel
+plt.legend(loc='upper right') #position
+plt.xlim([0,12]) #boundary of x axis
+plt.ylim([0,1.5])
+plt.xticks(range(10)) #set the scale
+plt.yticks([0,0.2,0.4,0.6,0.8,1.0,1.2])
+# fig.set_xticklabels("%.1f" %i for i in range(10)) #label
+x boundary 0-12,x scale label 0-9 with 0.1 step
+print(fig)
 ```
 
 > ```
@@ -2380,14 +2428,12 @@ plt.rcParams['axes.unicode_minus'] = False
 > # axis：x，y，both
 > ```
 
-```
-
-```
-
 - Style of chart：linestyle、style、color、marker
 
-```
-
+```python
+x = [1,2,3,4,5]
+y = [2.3,3.4,1.2,6.6,7.0]  #1 d data
+plt.plot(x,y,linestyle='--')              #line chart
 # '-'       solid line style
 # '--'      dashed line style
 # '-.'      dash-dot line style
@@ -2396,9 +2442,10 @@ plt.rcParams['axes.unicode_minus'] = False
 
 
 
-```
+```python
 # marker
-
+df = pd.DataFrame(np.random.rand(20,2),columns=['A','B'])
+df.plot(linestyle='--',marker ='v')  
 # '.'       point marker
 # ','       pixel marker
 # 'o'       circle marker
@@ -2425,9 +2472,12 @@ plt.rcParams['axes.unicode_minus'] = False
 
 
 
-```
-
-
+```python
+x = np.random.rand(100)
+plt.hist(x, color ='k',alpha = 0.7)
+#common color:  r :red,b:blue, g:green,b:black,y:yellow
+df = pd.DataFrame(np.random.rand(40,4),columns=['A','B','C','D'])
+df.plot(linestyle='-.',colormap='gist_earth_r')
 # colormap：
 # Accent, Accent_r, Blues, Blues_r, BrBG, BrBG_r, BuGn, BuGn_r, BuPu, BuPu_r, CMRmap, CMRmap_r, Dark2, Dark2_r, GnBu, GnBu_r, Greens, Greens_r,
 # Greys, Greys_r, OrRd, OrRd_r, Oranges, Oranges_r, PRGn, PRGn_r, Paired, Paired_r, Pastel1, Pastel1_r, Pastel2, Pastel2_r, PiYG, PiYG_r, 
@@ -2441,34 +2491,25 @@ plt.rcParams['axes.unicode_minus'] = False
 # spectral_r ,spring, spring_r, summer, summer_r, terrain, terrain_r, viridis, viridis_r, winter, winter_r
 ```
 
+- Annotation
 
-
-```
-# style：linestyle，marker，color
-
-# style → linestyle（-），marker（.），color（g）
-# plot()has grid
-```
-
-- Scale
-
-```
-# scale
-
+```python
+df = pd.DataFrame(np.random.rand(40,4),columns=['A','B','C','D'])
+df.plot(linestyle='-.',colormap='gist_earth_r')
+plt.text(15,0.9,'Text here',fontsize=10)# add text info , annotation
 ```
 
-- 
+- Chart output
 
-```
-# Annotation
-
-```
-
-- 
-
-```
-# Chart output
-
+```python
+df = pd.DataFrame(np.random.rand(40,4),columns=['A','B','C','D'])
+df.plot(linestyle='-.',colormap='gist_earth_r')
+plt.text(15,0.9,'Text here',fontsize=10)# add text info , annotation
+plt.savefig('C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\pic.png',
+           dpi=400,
+           bbox_inches='tight',
+           facecolor='g',
+           edgecolor='b') #tab+shift
 # save format: png，pdf，svg，ps，eps
 # dpi resolution ratio
 # bbox_inches：‘tight’try to cut out the white space around the chart。
@@ -2483,28 +2524,46 @@ plt.rcParams['axes.unicode_minus'] = False
 
 ```
 
+- histogram and kde
 
-
-- hist and kde
-
-
+```python
+x = pd.Series(np.random.rand(1000))
+x.hist( bins = 20,
+      histtype='bar',
+      align = 'left',
+       orientation = 'vertical',
+       alpha = 0.5,
+       density =True,stacked =True
+      )  #bar barstacked step stepfilled,align = 'mid'/left/right,orientation = 'horizontal'
+x.plot(kind='kde')  #Kernel Density Estimation
+```
 
 - scatter
 
-```
-
-```
-
-- 
-
-```
-
+```python
+x = np.random.rand(100)
+y = np.random.rand(100) #1 d data
+plt.scatter(x,y,
+            s=np.random.rand(100)*100,
+            c=y,
+            marker='.',
+            cmap='Reds',
+            norm=None,
+            vmin=None,
+            vmax=None,
+            alpha=0.8       
+           ) #scatter chart, dot
 ```
 
 - box
 
-```
-
+```python
+df = pd.DataFrame(np.random.rand(40,5),columns=['A','B','C','D','E'])
+color = dict(boxes='Green',whiskers='Orange',medians='Blue',caps='Gray')
+df.plot.box(
+  grid = True,
+    color =color
+)
 ```
 
 
