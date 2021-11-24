@@ -2600,21 +2600,73 @@ df.plot.box(
 
 ### 9.2 User behavior analysis
 
+#### 9.2.1 Project description：
+In recent years, the problem of employee turnover puzzles managers. Resignation become a significant problem for company development. In this project, we need to do some data analysis in employee. Try to pridect whether a person still work or leave the company in the near future.
+
+  We know there are many possible factors for an employee leaving company. It mainly contains salary\Department\EnvironmentSatisfaction etc.We will get these data and do some data analysis
+
+  Data is here:https://challenge.datacastle.cn/v3/cmptDetail.html?id=342
+
+#### 9.2.2 Dataset description:
+* DataCastle[Link](http://www.pkbigdata.com/common/cmpt/%E5%91%98%E5%B7%A5%E7%A6%BB%E8%81%8C%E9%A2%84%E6%B5%8B%E8%AE%AD%E7%BB%83%E8%B5%9B_%E7%AB%9E%E8%B5%9B%E4%BF%A1%E6%81%AF.html)
+* We have 2 files. train.csv and test.csv. it contains 1100 items(each item means an employee)，and 31 cols
+* Dict
+    * Age：Employee age
+    * Attrition：1 means the employee has resigned，2 means the employee is still in company
+    * BusinessTravel： Non-Travel means they have no business trip，Travel_Rarely means he don't travel often，Travel_Frequently；
+    * Department: include SalesDepartment，Research & Development，Human Resources Department；
+    * DistanceFromHome：from 1 to 29，1 is the nearest
+    * Education：Education level of employees，from 1 to 5，5 is the highest level；
+    * EducationField：include Life Sciences\Medical\Marketing\Technical DegreeHuman Resources\Other；
+    * EnvironmentSatisfaction：1 is minimum satisfaction，4 is the highest satisfaction
+    * Gender：Male Female
+    * JobInvolvement：Employee engagement，1 is the lowest engagement，4 is the highest investment
+    * JobLevel：1 is the lowest，5  is the highest
+    * JobRole：Sales Executive\Research Scientist\Laboratory Technician\Manufacturing Director\Healthcare Representative\Manager\Sales Representative\Research Director\Human Resources
+    * JobSatisfaction：1 represents the lowest degree of satisfaction，4 is the highest satisfaction
+    * MaritalStatus：Single\Married\Divorced
+    * MonthlyIncome： total revenue from 1009 to 19999
+    * NumCompaniesWorked：Number of companies where employees have worked
+    * OverTime：Yes，No means he never work overtime
+    * PercentSalaryHike：Percentage increase in salary；
+    * PerformanceRating：performance evaluation；
+    * RelationshipSatisfaction：1 is minimum satisfaction，4 is the highest satisfaction
+    * StandardHours：standard working hours；
+    * TrainingTimesLastYear：The training time. 0 means no training and 6 means the longest training time；
+    * WorkLifeBalance：balance between work and life ，1 is the lowest，4 is the highest 
+    * Others：YearsAtCompany、YearsInCurrentRole、YearsSinceLastPromotion、YearsWithCurrManager、StockOptionLevel、TotalWorkingYears、Over18、EmployeeNumber
+
+#### 9.2.3 Project tasks
+
+-  data checking
+
 ```
-# 引入必要的包
 import pandas as pd
 import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn import preprocessing
+%matplotlib inline
 ```
 
-```
-# 多变量关系
-sns.pairplot(sample_data, hue='Attrition', vars=['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike',
-                                               'TotalWorkingYears', 'TrainingTimesLastYear', 'YearsAtCompany', 'YearsInCurrentRole',
-                                               'YearsSinceLastPromotion', 'YearsWithCurrManager'])
-```
+- data cleaning
+- data analysising
+
+![pig](./image/9.21.png)
+
+![pig](./image/9.22.png)
+
+![pig](./image/9.23.png)
+
+![pig](./image/9.24.png)
+
+![pig](./image/9.25.png)
+
+![pig](./image/9.26.png)
+
+![pig](./image/9.27.png)
+
+
 
 ![pig](./image/an.png)
 
