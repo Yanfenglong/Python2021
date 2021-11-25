@@ -2659,11 +2659,9 @@ sample_data.info()
 sample_data.describe()  #basic data calculation 
 ```
 
-
-
 ![pig](./image/9.22.png)
 
-- 
+- Proportion of Positive sample and Negative sample
 
 ```
 pos_data = sample_data[sample_data['Attrition']==1]
@@ -2674,7 +2672,7 @@ print('Proportion:{}'.format(len(neg_data)/len(sample_data)))
 #Proportion of Positive sample & Negative sample
 ```
 
-
+-  Relationship between resignation and age
 
 ```
 plt.figure()
@@ -2710,46 +2708,100 @@ sns.pairplot(sample_data,hue ='Attrition',
 
 ![pig](./image/an.png)
 
-
-
 - data cleaning
 - data analysising
 
 ```
-#numerical data
+# Numerical data
 num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', 'TotalWorkingYears', 'TrainingTimesLastYear',
            'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'YearsWithCurrManager']
+# Category data
+# cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus', 'Over18', 'OverTime']
+# In this case, only 3 are selected as examples
+cat_cols = ['Gender', 'MaritalStatus', 'OverTime']
+# Ordered category data
+ord_cols = ['DistanceFromHome', 'Education', 'EnvironmentSatisfaction', 'JobInvolvement', 'JobLevel', 'JobSatisfaction',
+           'PerformanceRating', 'RelationshipSatisfaction', 'StockOptionLevel', 'WorkLifeBalance']
+
+# target_col
 target_col = ['Attrition']
-total_cols = num_cols
-used_data = sample_data[total_cols+target_col]
-print(used_data)
+
+# All feature columns
+#total_cols = num_cols + cat_cols + ord_cols
+total_cols = num_cols 
+used_data = sample_data[total_cols + target_col]
+
+print('All feature contain {} columns'.format(len(total_cols)))
+print(total_cols) #used_data,total_cols
+```
+
+ Split training and testing data，80% for training，20% for testing
+
+```
+pos_data = used_data[used_data['Attrition'] == 1].reindex()
+train_pos_data = pos_data.iloc[:int(len(pos_data) * 0.8)].copy()# proportion is the same in pos and neg data
+test_pos_data = pos_data.iloc[int(len(pos_data) * 0.8) :].copy()
+
+neg_data = used_data[used_data['Attrition'] == 0].reindex()
+train_neg_data = neg_data.iloc[:int(len(neg_data) * 0.8)].copy()
+test_neg_data = neg_data.iloc[int(len(neg_data) * 0.8) :].copy()
+
+train_data = pd.concat([train_pos_data, train_neg_data])
+test_data = pd.concat([test_pos_data, test_neg_data])
+```
+
+- train_data
+
+```
+print('training sample number', len(train_data))
+print('pos and neg proportion', len(train_pos_data) / len(train_neg_data))
+train_data.head()
+```
+
+- test_data
+
+```
+print('testing sample number', len(test_data))
+print('pos and neg proportion', len(test_pos_data) / len(test_neg_data))
+test_data.head()
 ```
 
 ![pig](./image/9.29.png)
 
+```
+# Integrate all features
+train_feats = train_data[num_cols].values
+train_targets = train_data[target_col].values
 
+test_feats = test_data[num_cols].values
+test_targets = test_data[target_col].values
 
-![pig](./image/9.26.png)
-
-![pig](./image/9.27.png)
+print('Training data：', train_feats.shape)
+print('Testing data：', test_feats.shape)
+```
 
 ![pig](./image/9.28.png)
 
-
-
-
-
 ```
-# 数值型数据
-num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', 'TotalWorkingYears', 'TrainingTimesLastYear',
-           'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'YearsWithCurrManager']
-# 类别型数据
-# 所有类别型数据
-# cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus', 'Over18', 'OverTime']
+from sklearn.linear_model import LogisticRegression
+lr_clf = LogisticRegression()
+lr_clf.fit(train_feats, train_targets)
 ```
 
-- 
-- 
+
+
+```python
+#Model verification
+from sklearn import metrics
+
+print('Positive number in testing data', len(test_pos_data))
+print('Negative number in testing data', len(test_neg_data))
+
+# LogisticRegression
+test_pred = lr_clf.predict(test_feats)
+print(metrics.confusion_matrix(test_targets, test_pred, labels=[1, 0]))
+print('metrics accuracy：', metrics.accuracy_score(test_targets, test_pred)) # 0.837
+```
 
 
 
@@ -2770,7 +2822,7 @@ num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', '
 
 ### 10.3 Summative assessment
 
-Exam method: Big Project   Total Score: 100 Points
+Exam method: Big Project   Total Score: 100 Points  
 
 | **Total Score: 100 Points**                                  |                                                              |                                                              |                                                              |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
