@@ -2612,7 +2612,7 @@ In recent years, the problem of employee turnover puzzles managers. Resignation 
 * We have 2 files. train.csv and test.csv. it contains 1100 items(each item means an employee)，and 31 cols
 * Dict
     * Age：Employee age
-    * Attrition：1 means the employee has resigned，2 means the employee is still in company
+    * Attrition：1 means the employee has resigned，0 means the employee is still in company
     * BusinessTravel： Non-Travel means they have no business trip，Travel_Rarely means he don't travel often，Travel_Frequently；
     * Department: include SalesDepartment，Research & Development，Human Resources Department；
     * DistanceFromHome：from 1 to 29，1 is the nearest
@@ -2640,21 +2640,57 @@ In recent years, the problem of employee turnover puzzles managers. Resignation 
 
 -  data checking
 
-```
+```python
 import pandas as pd
 import numpy as np
-import seaborn as sns
+import seaborn as sns  #update matplotlib,provide more useful function to draw pic
 import matplotlib.pyplot as plt
-from sklearn import preprocessing
+from sklearn import preprocessing  #mathine learning
 %matplotlib inline
+#import the data
+sample_data = pd.read_csv('train.csv')
+sample_data.head()
+sample_data.info()
 ```
-
-- data cleaning
-- data analysising
 
 ![pig](./image/9.21.png)
 
+```
+sample_data.describe()  #basic data calculation 
+```
+
+
+
 ![pig](./image/9.22.png)
+
+- 
+
+```
+pos_data = sample_data[sample_data['Attrition']==1]
+neg_data = sample_data[sample_data['Attrition']==0]
+print('Positive sample number:{}'.format(len(pos_data)))
+print('Negative sample number:{}'.format(len(neg_data)))
+print('Proportion:{}'.format(len(neg_data)/len(sample_data)))
+#Proportion of Positive sample & Negative sample
+```
+
+
+
+```
+plt.figure()
+#sns.countplot(x='Attrition',data=sample_data,hue ='Education')
+plt.subplot(131) 
+sns.boxplot(x='Attrition',data=sample_data,y ='YearsWithCurrManager') 
+#JobInvolvement,YearsAtCompany,YearsWithCurrManager
+plt.subplot(132) 
+sns.boxplot(x='Attrition',data=sample_data,y ='YearsAtCompany') 
+plt.subplot(133) 
+sns.boxplot(x='Attrition',data=sample_data,y ='YearsWithCurrManager') 
+plt.figure()
+sns.countplot(x='Attrition',data=sample_data,hue ='Education')
+```
+
+
 
 ![pig](./image/9.23.png)
 
@@ -2662,13 +2698,46 @@ from sklearn import preprocessing
 
 ![pig](./image/9.25.png)
 
+```python
+sns.pairplot(sample_data,hue ='Attrition',
+             vars=['PercentSalaryHike','PerformanceRating',
+                   'RelationshipSatisfaction','StandardHours',
+                   'StockOptionLevel','TotalWorkingYears',
+                   'TrainingTimesLastYear','WorkLifeBalance',
+                   'YearsAtCompany']) 
+#multi variable relationship 
+```
+
+![pig](./image/an.png)
+
+
+
+- data cleaning
+- data analysising
+
+```
+#numerical data
+num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', 'TotalWorkingYears', 'TrainingTimesLastYear',
+           'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'YearsWithCurrManager']
+target_col = ['Attrition']
+total_cols = num_cols
+used_data = sample_data[total_cols+target_col]
+print(used_data)
+```
+
+![pig](./image/9.29.png)
+
+
+
 ![pig](./image/9.26.png)
 
 ![pig](./image/9.27.png)
 
+![pig](./image/9.28.png)
 
 
-![pig](./image/an.png)
+
+
 
 ```
 # 数值型数据
@@ -2678,6 +2747,9 @@ num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', '
 # 所有类别型数据
 # cat_cols = ['BusinessTravel', 'Department', 'EducationField', 'Gender', 'JobRole', 'MaritalStatus', 'Over18', 'OverTime']
 ```
+
+- 
+- 
 
 
 
