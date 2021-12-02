@@ -340,7 +340,7 @@ print(x)
 
 ​	x = 1 means x is a variable, and its value is unique. When x = [1,2,3,4], it is a list. There are four elements in this list . Inside of a list there are many kind of data type, such as string/number/list etc.
 
-```
+```python
 list0 = [1,2,3,4]  # add 4 elements  in a sequence
 list1 = [1,2,3,4,"hello","world",[5,6,7],1.3,5.4]
 list1
@@ -348,7 +348,7 @@ list1
 
 - List common operation
 
-```
+```python
 #Link and repeat
 x = [1,2,3]
 y = [4,5,6]
@@ -363,7 +363,7 @@ print(x)  #[1, 2, 3, 4, 5, 6]
 
 ​       Each element has a index, that is the element position. Get an element by specifying a subscript(index), or by specifying a range, you get elements for a set of sequences. This way of accessing sequences is called slicing.
 
-```
+```python
 list2 = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 list3 = [1,2,3,4,"hello","world",[5,6,7],1.3,5.4]
 list4 = [1,2,[5,6,7],1,2,3,4,"hello","world",[5,6,7],1.3,5.4]
@@ -379,7 +379,7 @@ print(list2[-1::-1]) # count from right to left,parameters can be set as negativ
 
 
 
-```
+```python
 #some build-in function  len --length of a list
 list2 = [1, 2, 3, 4, 5, 6, 7, 8,3] # '' is string
 #print(len(list2),list2.count(3) )
@@ -398,7 +398,7 @@ print(list2.index(3))
 > 2.When the step is positive, indicating left to right.If step is negative, the range count from right to left 
 > ```
 
-```
+```python
 
 #Question
 x = [1,2,3,1,[1],[1,1],'1']
@@ -424,7 +424,7 @@ print(a[3][1]) # print(a[-2][1])
 
 - List and generator(range)
 
-```
+```python
 #generator: it is comma , not colons , start : limit number : step
 b = range(10)
 c = list(range(10))
@@ -433,7 +433,7 @@ print(c)
 
 
 
-```
+```python
 Question:
     1. is the result of range() integer？  # yes
     2. create a range with 5 element， Use type() to check its type
@@ -443,7 +443,7 @@ Question:
 
 - Insert and delete 
 
-```
+```python
 #remove an element
 #c.remove(5)
 #del is a sentence , slice
@@ -455,7 +455,7 @@ print(c)
 
 - Copy list
 
-```
+```python
 f = list(range(8))
 #g = f
 g = f.copy()  
@@ -483,26 +483,26 @@ Lesson-2 review Question:
 
       1. what is the difference between sort and sorted?
 
-```
+```python
 m.sort()   -- modify the original list into an ordered sequence
 sorted(m)  -- create a new list
 ```
 
 ​    2. create a list m = [1,2,4,1,1,3] , insert ["Jack"] between 4 and 1
 
-```
+```python
 m.insert(3,"Jack")
 ```
 
    3.m = [1,2,4,1,1,3] what is the difference between m.remove(2)  ,m.pop(2), del m[2]
 
-```
+```python
 m.pop() ,del m[2] is a statement, the result is same
 ```
 
   4 .what is the difference between append and extend?
 
-```
+```python
 append #  [1,2,3,[4,5,6]]  
 extend #  [1,2,3,4,5,6] 
 ```
@@ -511,7 +511,7 @@ extend #  [1,2,3,4,5,6]
 
 we need to use 2 function: input(), for i in range():
 
-```
+```python
 #first we define an empty list, when we insert a value, we append this value into the list, and then use sort function  
 i = []
 for k in range(3):
@@ -576,7 +576,7 @@ print('hello' in dic1) # in :determine if a dict contains this key
 
 - Content reading in dict
 
-```
+```python
 dic4 = {'name':'yan','home':{'location':'Jakarta','email':'yan@google.com'}}
 print(dic4['home']['location'])
 print(dic4.get('home').get('location')) # dict.get()
@@ -586,7 +586,7 @@ print(dic4.values(),dic4.keys()) #
 
 
 
-```
+```python
 dic5 = {'name':'yan','age':'18','height':'180cm','hair':'black',
         'home':{'location':'Jakarta','email':'yan@google.com'}}
 #use a loop , like for cycle
@@ -599,7 +599,7 @@ for k,v in dic5.items():  #(k,v)
 
 
 
-```
+```python
 #practice: use input function, try to input 1,2,3    
 #if you input 1  , the system output : 'you have input 1'
 #if you input 2  , the system output : you have input 2
@@ -616,7 +616,7 @@ print(info.get(a)) #if user input other number,we need do judgement
 
   Set is an unordered sequence of non repeating elements. You can create a set using braces {} or the set() function. 
 
-```
+```python
 basket = {"apple","orange","pear","apple","apple","apple"}  #set type
 basket1 = set("pear")
 print(basket1)
@@ -628,7 +628,7 @@ print(set3)
 
 calculate set
 
-```
+```python
 set4 = {"a","b","c","d"}
 set5 = {"e","f","c","taobao"}
 #print(set4 ^set5) # | or & and ^ only in set 4 or in set5 
@@ -670,7 +670,7 @@ Rule: Find a number, divide 2 to sqrt (this number) by a number. If it can be di
 
 for example: 6 can be divide by 3
 
-```
+```python
 from math import sqrt
 leap =1　
 for i in range(1,15):
@@ -722,7 +722,7 @@ for i in range(3):  #underline is ok
 1.write a for cycle ,try to output even number which is no more than 10
 #0,2,4,6,8
 
-```
+```python
 for i in range(10):
     if  i % 2 ==0:
         print(i)
@@ -735,7 +735,7 @@ For example , 153 is a narcissistic number，because 153=1* * 3＋5 * *3＋3**3.
 
 Please get all the "Narcissistic number" from 100 - 1000
 
-```
+```python
 for i in range(100,1000):  #IF I = 153
    a = i // 100  #1
    b = i %10 // 10 #5
@@ -749,7 +749,7 @@ for i in range(100,1000):  #IF I = 153
 
 while cycle construct a structure similar to an infinite loop or use it in a loop with an uncertain times.
 
-```
+```python
 count = 0
 while count < 10:
     print("The count is ",count)
@@ -785,7 +785,7 @@ Practice：
 
 1. Output all even number which is less than 10
 
-```
+```python
 i = 1
 while i<10:
     i +=1
@@ -848,7 +848,7 @@ practice:
 
 1. run the code below on your computer, and see the result  
 
-```
+```python
 s = 0
 for i in 'helloworld,hello Jakarta':
     if i == 'w':
@@ -1196,7 +1196,7 @@ list(filter(is_odd,[1,2,4,5,6,9,15]))
 
 Map get each of element in list and assign to function,  And then return the result as a new list
 
-```
+```python
 def is_odd(n):
     return n%2 ==1
 list(map(is_odd,[1,2,4,5,6,9,15]))
@@ -1210,7 +1210,7 @@ map return the result, however filter get out data for scope
 reduce(f,[x1,x2,x3,x3]) =f(f(f(x1,x2),x3) ,x4)
 ```
 
-```
+```python
 from functools import reduce
 def add(x,y):
     return x+y
@@ -1238,7 +1238,7 @@ Object Oriented Programming(OOP) is a programming method through defining functi
 
 We can use classes to define and represent models with the **same** **attributes** and **capabilities**, the structure is as followed:
 
-```
+```python
 class <ClassName>:
 ```
 
@@ -1350,7 +1350,7 @@ A.class_foo('data2')  #result：executing class_foo(<class '__main__.A'>, data2)
 
 3. Write a Student Class that requires counter attribute . It can count the total number of students instantiated
 
-```
+```python
 class Student:
     count = 0
     @classmethod
@@ -1443,7 +1443,7 @@ practice：
 
 1. What is the following code output,why
 
-```
+```python
 class Parent(object):
   	x = 1
 class Child1(Parent):
@@ -1494,7 +1494,7 @@ def f3(a,d,n):
 
 - Call module
 
-```
+```python
 import testmodel2
 # Call the module directly with import   print(testmodel2.f1(5))   
 print(testmodel2.f2([2,3,4,5,5,5,6,6,4,4,4,4],4))
@@ -1541,7 +1541,7 @@ A package is a folder or directory ，it must contain a  _init _.py file，Howev
 
 Practice： change image to text file
 
-```
+```python
 #!/usr/bin/env python
 # coding: utf-8
 
@@ -1877,7 +1877,7 @@ https://pypi.org/
 
 #### 8.1.1 Random number
 
-```
+```python
 import numpy as np
 #rand(d0,d1,d2....dn)  generate a random number or an n dimensions array, 
 #all the element value is between[0,1] 
@@ -1890,7 +1890,7 @@ print(d)
 
 
 
-```
+```python
 samples1 = np.random.rand(1000) #uniformly distributed sample value
 samples2 = np.random.rand(1000)
 #print(samples1)
@@ -1900,7 +1900,7 @@ plt.scatter(samples1,samples2)
 
 
 
-```
+```python
 #randint(size)
 print(np.random.randint(3)) # from 0 to 2, but 0 is ok 2 is not included
 print(np.random.randint(3, size=5))
@@ -2032,7 +2032,7 @@ print(np.sort(np.array([1,4,2,3,7,100,8])))
 
 Practice： 
 
-```
+```python
 1.create an array:
 a = [[0 1 2 3]
  [4 5 6 7]
@@ -2067,7 +2067,7 @@ print(np.resize(arr, (5, 6)))
 
 #### 8.1.4 Numpy index and slice
 
-```
+```python
 ar = np.arange(16).reshape(2,4,2)
 #print(ar[0]) #the 1st element in 3d array -----2d
 print(ar[0][0]) #1d array 
@@ -2255,7 +2255,7 @@ df4 = pd.DataFrame([{'one':1,'two':2,'three':3,'four':4},
 
 - Dataframe：index
 
-  Dataframe has both row and column indexes选择列 / 选择行 / 切片 / 布尔判断
+  Dataframe has both row and column indexes
 
 
 
@@ -2384,7 +2384,7 @@ import pandas as pd
 plt.scatter(np.random.rand(1000),np.random.rand(1000)) 
 ```
 
-![Figure_1](C:\Users\everi\Desktop\Figure_1.png)
+
 
 #### 8.3.3 Basic elements of chart
 
@@ -2566,29 +2566,199 @@ df.plot.box(
 )
 ```
 
+### 8.4 Seaborn
+
+#### 8.4.1 Histogram
+
+- distplot
+
+```
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+%matplotlib inline
+
+import warnings
+warnings.filterwarnings('ignore') 
+```
+
+> bins → Number of boxes
+> hist、ked → Is the box / density curve displayed
+> norm_hist → Is the histogram displayed according to density
+> rug → Display data distribution
+> vertical →  color → label → axlabel
+
+```
+# 1、histogram - distplot()
+s = pd.Series(np.random.randn(100) * 100)
+sns.distplot(s,bins = 10,hist = True,kde = False,norm_hist=False,
+            rug = True,vertical = False,
+            color = 'y',label = 'distplot',axlabel = 'x')
+plt.legend()
+```
+
+ # histtype includes：'bar', 'barstacked', 'step', 'stepfilled'
+
+```
+sns.distplot(s,rug = True, 
+            rug_kws = {'color':'g'} ,   
+            # Set data frequency distribution color
+            kde_kws={"color": "k", "lw": 1, "label": "KDE",'linestyle':'--'},   
+             #Set density curve color, line width, dimension and line shape
+            hist_kws={"histtype": "step", "linewidth": 1,"alpha": 1, "color": "g"})     
+```
+
+Data density distribution of single sample
+
+```
+# 2、 - kdeplot()
+# Data density distribution of single sample
+
+sns.kdeplot(s,shade = False,  #  fill or not
+           color = 'r',  
+           vertical = False)
+
+sns.kdeplot(s,bw=5, label="bw: 0.2",
+            linestyle = '-',linewidth = 1.2,alpha = 0.5)
+# bw → Control the degree of fit,  similar with number of boxes in histogram
+
+sns.rugplot(s,height = 0.1,color = 'k',alpha = 0.5)
+# Data frequency distribution
+```
+
+Data density distribution of single sample
+
+```
+# 2、 - kdeplot()
+# Data density distribution of two samples
+
+
+rs = np.random.RandomState(2)  # Seed random number
+df = pd.DataFrame(rs.randn(100,2),
+                 columns = ['A','B'])
+sns.kdeplot(df['A'],df['B'],
+           cbar = True,    # Show color legend
+           shade = True, 
+           cmap = 'Reds',  # Settings palette
+           shade_lowest=False,  # Is the outermost color displayed
+           n_levels = 10   # Number of curves
+           )
+
+sns.rugplot(df['A'], color="g", axis='x',alpha = 0.5)
+sns.rugplot(df['B'], color="r", axis='y',alpha = 0.5)
+```
+
+Multiple density maps
+
+```
+# Multiple density maps
+rs1 = np.random.RandomState(2)  
+rs2 = np.random.RandomState(5)  
+df1 = pd.DataFrame(rs1.randn(100,2)+2,columns = ['A','B'])
+df2 = pd.DataFrame(rs2.randn(100,2)-2,columns = ['A','B'])
+
+sns.kdeplot(df1['A'],df1['B'],cmap = 'Greens',
+            shade = True,shade_lowest=False)
+sns.kdeplot(df2['A'],df2['B'],cmap = 'Blues',
+            shade = True,shade_lowest=False)
+```
+
+#### 8.4.2 jointplot()
+
+```
+# 1、Comprehensive scatter diagram - jointplot()
+rs = np.random.RandomState(2)  
+df = pd.DataFrame(rs.randn(200,2),columns = ['A','B'])
+# 创建数据
+
+sns.jointplot(x=df['A'], y=df['B'],  # Show columns name
+              data=df,   
+              color = 'k',  
+              s = 50, edgecolor="w",linewidth=1,  
+              kind = 'scatter',   # type：“scatter”、“reg”、“resid”、“kde”、“hex”
+              space = 0.2,  # 设置散点图和布局图的间距
+              size = 8,   # 图表大小（自动调整为正方形）
+              ratio = 5,  # 散点图与布局图高度比，整型
+              marginal_kws=dict(bins=15, rug=True)  # 设置柱状图箱数，是否设置rug
+              )  
+```
 
 
 
+```
+rs = np.random.RandomState(15)
+df = pd.DataFrame(rs.randn(300,2),columns = ['A','B'])
+g = sns.jointplot(x=df['A'], y=df['B'],data = df,
+                  kind="kde", color="r",
+                  shade_lowest=False)
 
+g.plot_joint(plt.scatter,c="w", s=30, linewidth=1, marker="+")
+# 添加散点图
+```
 
-
-
+#### 
 
 ## 9. Application
 
-### 9.1 Medical CT Image Data Analysis
+### 9.1 Medical CT Image Data Analysis 
 
-​	Computed Tomography（CT）plays an important role in clinical diagnosis. It has the characteristics of high speed, high accuracy and good repeatability . Doctors can make a diagnosis of the patient's condition and give a treatment plan through CT images. Most of the current medical detection research tasks are designed for single task learning, of which the detection function is often only for a specific part of lesion detection. 
+#### 	9.1.1  Project description：Deep leision
 
-<img src="./image/information.png" alt="pig" style="zoom:80%;" />
+​      Computed Tomography（CT）plays an important role in clinical diagnosis. It has the characteristics of high speed, high accuracy and good repeatability . Doctors can make a diagnosis of the patient's condition and give a treatment plan through CT images. Most of the current medical detection research tasks are designed for single task learning, of which the detection function is often only for a specific part of lesion detection. 
 
-​	There are 8 kinds of lesions: lung, abdomen, mediastinum, liver, pelvis, soft tissue, kidney and bone
+> These data is from here: DeepLesionGraphsintheWild: RelationshipLearningandOrganizationofSignificantRadiologyImage FindingsinaDiverseLarge-scaleLesionDatabase
+
+There are 8 kinds of lesions: lung, abdomen, mediastinum, liver, pelvis, soft tissue, kidney and bone
+
+  <img src="./image/Medical1.png" alt="pig" style="zoom:80%;" />
+
+The **DeepLesion** dataset contains 32,120 axial computed tomography (CT) slices from 10,594 CT scans (studies) of 4,427 unique patients. There are 1–3 lesions in each image with accompanying bounding boxes and size measurements, adding up to 32,735 lesions altogether. 	 
+
+#### 9.1.2 Data Meaning
+
+​	Most complex learning problems are usually decomposed into simple and independent sub-problems, and then the results are combined to get the results of the original problem. In this way, the association information between problems is ignored and the generalization effect of the model is weakened . In the actual clinical diagnosis, it will be found that many lesions are actually related, and the detection of a single part is not conducive for the doctor's comprehensive diagnosis. The detection of multi-site lesions can detect the metastasis of lesions earlier. At the same time, it can excavate the relationship between different lesions . 
 
 <img src="./image/medical.png" alt="pig" style="zoom:80%;" />
 
-​	Most complex learning problems are usually decomposed into simple and independent sub-problems, and then the results are combined to get the results of the original problem. In this way, the association information between problems is ignored and the generalization effect of the model is weakened . In the actual clinical diagnosis, it will be found that many lesions are actually related, and the detection of a single part is not conducive for the doctor's comprehensive diagnosis. The detection of multi-site lesions can detect the metastasis of lesions earlier. At the same time, it can excavate the relationship between different lesions .
+In DL_info.csv, each row is the information of a lesion in DeepLesion. The meaning of the columns are:
 
-​	<img src="./image/2对比分析3 .png" alt="pig" style="zoom:70%;" />
+> 1. File name. Please replace the last underscore with / or \ to indicate sub-folders.
+>
+> 2. Patient index starting from 1. 
+>
+> 3. Study index for each patient starting from 1. There are 1~26 studies for each patient.
+> 4.  Series ID.
+>
+> 5. Slice index of the key slice containing the lesion annotation, starting from 1.
+>
+> 6. 8D vector, the image coordinates (in pixel) of the two RECIST diameters of the lesion. [*x*11, y11, *x*12, *y*12, *x*21, *y*21, *x*22, *y*22]. The first 4 coordinates are for the long axis. 
+>
+> 7. 4D vector, the bounding-box [*x*1, *y*1, *x*2, *y*2] of the lesion (in pixel) estimated from the RECIST diameters.
+>
+> 8. 2D vector, the lengths of the long and short axes. The unit is pixels.
+>
+> 9. The relative body position of the center of the lesion. The z-coordinates were predicted by the self-supervised body part regressor.  The coordinates are approximate and just for reference.
+>
+> 10. The type of the lesion. Types 1~8 correspond to bone, abdomen, mediastinum, liver, lung, kidney, soft tissue, and pelvis, respectively. See our paper for details. The lesion types are coarsely defined and just for reference. Only the lesions in the val and test sets were annotated with others denoted as -1.
+>
+> 11. This field is set to 1 if the annotation of this lesion is possibly noisy according to manual check. We found 35 noisy annotations out of 32,735 till now.
+>
+> 12. Slice range. Context slices neighboring to the key slice were provided in this dataset. For example, in the first lesion, the key slice is 109 and the slice range is 103~115, meaning that slices 103~115 are provided. For most lesions, we provide 30mm extra slices above and below the key slice, unless the long axis of the lesion is larger than this thickness (then we provide more) or the beginning or end of the volume is reached.
+>
+> 13. Spacing (mm per pixel) of the *x*, *y*, and *z* axes. The 3rd value is the slice interval, or the physical distance between two slices.
+>
+> 14. Image size.
+>
+> 15. The windowing (min~max) in Hounsfield unit extracted from the original DICOM file.
+>
+> 16. Patient gender. F for female and M for male.
+>
+> 17. Patient age.
+>
+> 18. Official randomly generated patient-level data split, train=1, validation=2, test=3.
+
+​	<img src="./image/information.png" alt="pig" style="zoom:80%;" />
 
 ​	<img src="./image/densitymap.png" alt="pig" style="zoom:60%;" />
 
@@ -2711,7 +2881,7 @@ sns.pairplot(sample_data,hue ='Attrition',
 - data cleaning
 - data analysising
 
-```
+```python
 # Numerical data
 num_cols = ['Age', 'MonthlyIncome', 'NumCompaniesWorked', 'PercentSalaryHike', 'TotalWorkingYears', 'TrainingTimesLastYear',
            'YearsAtCompany', 'YearsInCurrentRole', 'YearsSinceLastPromotion', 'YearsWithCurrManager']
@@ -2737,7 +2907,7 @@ print(total_cols) #used_data,total_cols
 
  Split training and testing data，80% for training，20% for testing
 
-```
+```python
 pos_data = used_data[used_data['Attrition'] == 1].reindex()
 train_pos_data = pos_data.iloc[:int(len(pos_data) * 0.8)].copy()# proportion is the same in pos and neg data
 test_pos_data = pos_data.iloc[int(len(pos_data) * 0.8) :].copy()
@@ -2752,7 +2922,7 @@ test_data = pd.concat([test_pos_data, test_neg_data])
 
 - train_data
 
-```
+```python
 print('training sample number', len(train_data))
 print('pos and neg proportion', len(train_pos_data) / len(train_neg_data))
 train_data.head()
@@ -2760,7 +2930,7 @@ train_data.head()
 
 - test_data
 
-```
+```python
 print('testing sample number', len(test_data))
 print('pos and neg proportion', len(test_pos_data) / len(test_neg_data))
 test_data.head()
@@ -2768,7 +2938,7 @@ test_data.head()
 
 ![pig](./image/9.29.png)
 
-```
+```python
 # Integrate all features
 train_feats = train_data[num_cols].values
 train_targets = train_data[target_col].values
@@ -2782,7 +2952,7 @@ print('Testing data：', test_feats.shape)
 
 ![pig](./image/9.28.png)
 
-```
+```python
 from sklearn.linear_model import LogisticRegression
 lr_clf = LogisticRegression()
 lr_clf.fit(train_feats, train_targets)
@@ -2829,5 +2999,5 @@ Exam method: Big Project   Total Score: 100 Points
 | **Test Case Coverage **  （25 Points）                       | **Test Case Details**  （25 Points）                         | **Tool usage** （25 Points）                                 | **Reporting** （25 Points）                                  |
 | Be able to understand based knowledge. Include data analysis and display. | The code implementation design is appropriate for specific requirement. The objective  and steps are clear.  And a document is required. | Be able to use Pycharm and Jupiter. Package installation and version  control correctly. | Application can be described clearly. Status, severity and other  attributes are correct. |
 
-# 
+
 
