@@ -2568,6 +2568,8 @@ df.plot.box(
 
 ### 8.4 Seaborn
 
+i t is an update of plt based on Matplotlib. It is powerful 
+
 #### 8.4.1 Histogram
 
 - distplot
@@ -2590,15 +2592,21 @@ warnings.filterwarnings('ignore')
 > vertical →  color → label → axlabel
 
 ```
-# 1、histogram - distplot()
-s = pd.Series(np.random.randn(100) * 100)
-sns.distplot(s,bins = 10,hist = True,kde = False,norm_hist=False,
-            rug = True,vertical = False,
-            color = 'y',label = 'distplot',axlabel = 'x')
-plt.legend()
+#histogram
+import seaborn as sns
+import warnings
+warnings.filterwarnings('ignore')
+s = pd.Series(np.random.randn(100)*100)
+sns.distplot(s,bins=20,hist=True,
+    kde=True,norm_hist = False,rug =True, vertical= False,color = 'r',rug_kws = {'color':'g'} 
+            )  
+#fit value, density curve
 ```
 
- # histtype includes：'bar', 'barstacked', 'step', 'stepfilled'
+<img src="./image/sb1.png" alt="pig" />
+
+- 
+- histtype includes：'bar', 'barstacked', 'step', 'stepfilled'
 
 ```
 sns.distplot(s,rug = True, 
@@ -2606,8 +2614,10 @@ sns.distplot(s,rug = True,
             # Set data frequency distribution color
             kde_kws={"color": "k", "lw": 1, "label": "KDE",'linestyle':'--'},   
              #Set density curve color, line width, dimension and line shape
-            hist_kws={"histtype": "step", "linewidth": 1,"alpha": 1, "color": "g"})     
+            hist_kws={"histtype": "step", "linewidth": 1,"alpha": 1, "color": "g"}) 
 ```
+
+<img src="./image/sb1.png" alt="pig" />
 
 Data density distribution of single sample
 
@@ -2694,7 +2704,6 @@ g = sns.jointplot(x=df['A'], y=df['B'],data = df,
                   shade_lowest=False)
 
 g.plot_joint(plt.scatter,c="w", s=30, linewidth=1, marker="+")
-# 添加散点图
 ```
 
 #### 
@@ -2724,49 +2733,265 @@ The **DeepLesion** dataset contains 32,120 axial computed tomography (CT) slices
 In DL_info.csv, each row is the information of a lesion in DeepLesion. The meaning of the columns are:
 
 > 1. File name. Please replace the last underscore with / or \ to indicate sub-folders.
->
-> 2. Patient index starting from 1. 
->
+>2. Patient index starting from 1. 
 > 3. Study index for each patient starting from 1. There are 1~26 studies for each patient.
-> 4.  Series ID.
->
+>4. Series ID.
 > 5. Slice index of the key slice containing the lesion annotation, starting from 1.
->
 > 6. 8D vector, the image coordinates (in pixel) of the two RECIST diameters of the lesion. [*x*11, y11, *x*12, *y*12, *x*21, *y*21, *x*22, *y*22]. The first 4 coordinates are for the long axis. 
->
-> 7. 4D vector, the bounding-box [*x*1, *y*1, *x*2, *y*2] of the lesion (in pixel) estimated from the RECIST diameters.
->
+>7. 4D vector, the bounding-box [*x*1, *y*1, *x*2, *y*2] of the lesion (in pixel) estimated from the RECIST diameters.
 > 8. 2D vector, the lengths of the long and short axes. The unit is pixels.
->
-> 9. The relative body position of the center of the lesion. The z-coordinates were predicted by the self-supervised body part regressor.  The coordinates are approximate and just for reference.
->
+>9. The relative body position of the center of the lesion. The z-coordinates were predicted by the self-supervised body part regressor.  The coordinates are approximate and just for reference.
 > 10. The type of the lesion. Types 1~8 correspond to bone, abdomen, mediastinum, liver, lung, kidney, soft tissue, and pelvis, respectively. See our paper for details. The lesion types are coarsely defined and just for reference. Only the lesions in the val and test sets were annotated with others denoted as -1.
->
-> 11. This field is set to 1 if the annotation of this lesion is possibly noisy according to manual check. We found 35 noisy annotations out of 32,735 till now.
->
+>11. This field is set to 1 if the annotation of this lesion is possibly noisy according to manual check. We found 35 noisy annotations out of 32,735 till now.
 > 12. Slice range. Context slices neighboring to the key slice were provided in this dataset. For example, in the first lesion, the key slice is 109 and the slice range is 103~115, meaning that slices 103~115 are provided. For most lesions, we provide 30mm extra slices above and below the key slice, unless the long axis of the lesion is larger than this thickness (then we provide more) or the beginning or end of the volume is reached.
->
-> 13. Spacing (mm per pixel) of the *x*, *y*, and *z* axes. The 3rd value is the slice interval, or the physical distance between two slices.
->
+>13. Spacing (mm per pixel) of the *x*, *y*, and *z* axes. The 3rd value is the slice interval, or the physical distance between two slices.
 > 14. Image size.
->
-> 15. The windowing (min~max) in Hounsfield unit extracted from the original DICOM file.
->
+>15. The windowing (min~max) in Hounsfield unit extracted from the original DICOM file.
 > 16. Patient gender. F for female and M for male.
->
-> 17. Patient age.
->
+>17. Patient age.
 > 18. Official randomly generated patient-level data split, train=1, validation=2, test=3.
+
+```
+import pandas as pd
+import numpy as np
+import seaborn as sns  #update matplotlib,provide more useful function to draw pic
+import matplotlib.pyplot as plt
+%matplotlib inline
+```
+
+
+
+```
+import os
+os.chdir(r'C:\Users\everi\Desktop\Code\Python\Py2021') #change directory
+df01 = pd.read_csv('DL_info_deletelargeno.csv',engine='python') #read csv file
+df01.dropna(inplace =True) #Remove missing values.
+df01.head(10)
+```
+
+not only study, but also a kind of research. You can do the data analysis well, you can publish paper
 
 ​	<img src="./image/information.png" alt="pig" style="zoom:80%;" />
 
-​	<img src="./image/densitymap.png" alt="pig" style="zoom:60%;" />
+- Patient_age column
 
-​       We choose the combination of siloette coefficient and SSE to select the optimal K value. The specific method is to let K value from 1 to the appropriate upper limit of 16, and cluster each k value and record the corresponding SSE.
+```
+data_age = df01['Patient_age']  
+data_age.head(10)
+print('The total number of patient is %i'%len(data_age)) #9786
+```
+
+- 3 cols
+
+```
+data = df01[['Coarse_lesion_type','Patient_gender','Patient_age']]
+data.head()
+```
 
 
 
-![pig](./image/SSE.png)![pig](./image/Silhouette.png)
+```
+df = pd.DataFrame({'a':df01['Coarse_lesion_type'],'b':df01['Patient_gender']},columns=['a','b'])
+df.plot.hist(stacked=True,bins=10, alpha=0.5,colormap='RdYlGn',grid=True)
+#df.plot(linestyle='--',marker ='v')  
+plt.title('Coarse_lesion_type')
+```
+
+<img src="./image/medic1.png" alt="pig"  />
+
+```
+data_age.head()
+data_age.plot.box(vert=False,colormap='RdYlGn',grid=True,figsize=(10,4)) #Make a box plot of the DataFrame columns.
+plt.xlabel('age',fontsize=18)
+plt.ylabel('value',fontsize =20)
+plt.title('Patient_age')
+```
+
+<img src="./image/medic2.png" alt="pig"  />
+
+```
+plt.scatter(df01['Lesion_diameters_long'],df01['Lesion_diameters_short'],1,'r') #scatter chart, dot
+plt.xlabel('width',fontsize=16)
+plt.ylabel('height',fontsize =16)
+plt.title('Disease_size')
+```
+
+<img src="./image/medic3.png" alt="pig"  />
+
+```
+# df01['Lesion_diameters_long'],df01['Lesion_diameters_short']
+plt.figure(figsize=(15,10))
+sns.kdeplot(df01['Lesion_diameters_long'],df01['Lesion_diameters_short']
+            ,shade=True,cmap='Reds',cbar=True,n_levels=10) #2 samples
+sns.rugplot(df01['Lesion_diameters_long'],color ='g',axis='x',alpha=0.5)
+sns.rugplot(df01['Lesion_diameters_short'],color ='r',axis='y',alpha=0.5)
+```
+
+
+
+
+
+<img src="./image/densitymap.png" alt="pig" style="zoom:60%;" />
+
+> ​       
+
+We choose the combination of siloette coefficient and SSE to select the optimal K value. The specific method is to let K value from 1 to the appropriate upper limit of 16, and cluster each k value and record the corresponding SSE.
+
+#### 9.1.3 Clustering
+
+A data set is divided into different classes or clusters.  the cluster objects similarity is the same , and the difference  is as large as possible in different clusters .
+
+link: Desktop/Code/数据分析/练习06_房价影响因素挖掘/练习06房价影响因素挖掘.ipynb
+
+
+
+![pig](./image/cluster.gif)
+
+AI ----Machine learning--- Deep learning  - -   Size
+
+KMeans algorithm：
+
+> 1. Randomly initialize their respective center points
+>
+> 2. Calculate the distance between the point and the center of each group for classification, then the point is classified to the closest group.
+>
+> 3. Recalculate Group Center
+>
+> 4. back to step 1
+
+![pig](./image/cluster2.gif)
+
+ 
+
+k-means
+
+```
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+%matplotlib inline
+
+import warnings
+warnings.filterwarnings('ignore')
+from sklearn.datasets.samples_generator import make_blobs
+x,y_true = make_blobs(n_samples=300,n_features=4, cluster_std=0.5,random_state=0)
+print(y_true[:10])
+print(x[:10])
+plt.scatter(x[:,0],x[:,1],cmap='Reds',s=10,alpha=0.8)
+#A scatter plot of *y* vs. *x* with varying marker size and/or color.
+#Generate isotropic Gaussian blobs for clustering.
+```
+
+![pig](./image/141.png)
+
+Evaluate:
+
+```
+from sklearn.cluster import KMeans
+kmeans = KMeans(n_clusters=5,random_state=5)
+kmeans.fit(x) #Compute k-means clustering.
+y_kmeans = kmeans.predict(x) #Predict the closest cluster each sample in X belongs to.
+plt.scatter(x[:,0],x[:,1],c=y_kmeans, cmap='Dark2',s=10,alpha=0.8,marker='*')  #array-like or list of colors or color
+# print(x[:,0])
+```
+
+![pig](./image/142.png)
+
+- clustering medical data
+
+```
+import os
+import xlrd
+from sklearn.cluster import KMeans
+os.chdir("C:/Users/everi/Desktop/Code/Python/Py2021")
+df01 = xlrd.open_workbook('DL_info_kmeans.xls')
+table = df01.sheets()[0]
+data = []
+for i in range(table.nrows):
+    if i == 0:
+        continue
+    else:
+        data.append(table.row_values(i)[1:])
+featureList = ['Lesion_diameters_long', 'Lesion_diameters_short']
+mdl = pd.DataFrame.from_records(data, columns=featureList)
+mdl_new = np.array(mdl[['Lesion_diameters_long', 'Lesion_diameters_short']])  #2d
+# result = pd.Series.from_records(data, columns=['Coarse_lesion_type'])
+# result =data['Coarse_lesion_type']
+print(mdl_new[:,0])
+kmeans = KMeans(n_clusters=5,random_state=5)
+kmeans.fit(mdl_new) #Compute k-means clustering.
+y_kmeans = kmeans.predict(mdl_new) #Predict the closest cluster each sample in X belongs to.
+plt.scatter(mdl_new[:,0],mdl_new[:,1],c=y_kmeans, cmap='Dark2',s=10,alpha=0.8,marker='*')  #array-like or list of colors or color
+
+```
+
+![pig](./image/143.png)
+
+- SSE
+
+```
+import os
+import xlrd
+from sklearn.cluster import KMeans
+os.chdir("C:/Users/everi/Desktop/Code/Python/Py2021")
+df01 = xlrd.open_workbook('DL_info_kmeans.xls')
+table = df01.sheets()[0]
+data = []
+for i in range(table.nrows):
+    if i == 0:
+        continue
+    else:
+        data.append(table.row_values(i)[1:])
+featureList = ['Lesion_diameters_long', 'Lesion_diameters_short']
+mdl = pd.DataFrame.from_records(data, columns=featureList)
+mdl_new = np.array(mdl[['Lesion_diameters_long', 'Lesion_diameters_short']])  #2d
+SSE = []
+for k in  range(1,17):
+    group = KMeans(n_clusters=k)
+    group.fit(mdl[['Lesion_diameters_long', 'Lesion_diameters_short']])
+    SSE.append(group.inertia_)
+X=range(1,17)
+plt.xlabel('k')
+plt.ylabel('SSE')
+plt.plot(X, SSE, linestyle='-.',marker ='v')
+plt.show()  #group number is greater than 8
+```
+
+![pig](./image/144.png)
+
+![pig](./image/SSE.png)
+
+```
+import os
+import xlrd
+from sklearn.cluster import KMeans
+from sklearn.metrics import silhouette_score
+os.chdir("C:/Users/everi/Desktop/Code/Python/Py2021")
+df01 = xlrd.open_workbook('DL_info_kmeans.xls')
+table = df01.sheets()[0]
+data = []
+for i in range(table.nrows):
+    if i == 0:
+        continue
+    else:
+        data.append(table.row_values(i)[1:])
+featureList = ['Lesion_diameters_long', 'Lesion_diameters_short']
+mdl = pd.DataFrame.from_records(data, columns=featureList)
+mdl_new = np.array(mdl[['Lesion_diameters_long', 'Lesion_diameters_short']])  #2d
+Scores = []  
+for k in range(2, 17):
+    estimator = KMeans(n_clusters=k)      
+    estimator.fit(np.array(mdl[['Lesion_diameters_long', 'Lesion_diameters_short']]))
+    Scores.append(silhouette_score(np.array(mdl[['Lesion_diameters_long', 'Lesion_diameters_short']]), estimator.labels_, metric='euclidean'))
+X = range(2, 17)
+plt.xlabel('k')
+plt.ylabel('Silhouette Coefficient')
+plt.plot(X, Scores, 'ro-')
+plt.show()#group number 15 = 3*5   
+#select 3 kind of radio 2:1, 1:2 ,1:1 ,select 5 kinds of width value 
+```
+
+![pig](./image/145.png)
 
 ### 9.2 User behavior analysis
 
