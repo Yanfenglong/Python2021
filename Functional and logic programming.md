@@ -863,8 +863,18 @@ print('The end')
 
 2.Try to find all the even number in 1-20, and calculate the sum of all the even number
 
-```
-
+```python
+  ```
+#break continue pass
+s = 0
+for i in range(20):
+    if i%2 == 0:
+        s += i
+    else:
+        continue
+    print('%i'%(i/2))
+print('result is %i'%s)
+  ```
 ```
 
 ### 3.4  Flow chart 
@@ -1572,8 +1582,6 @@ if __name__ == '__main__':
         f.write(result)
 ```
 
-Lesson6 - review:
-
 
 
 ## 7. File and Exception
@@ -2072,6 +2080,35 @@ ar = np.arange(16).reshape(2,4,2)
 #print(ar[0]) #the 1st element in 3d array -----2d
 print(ar[0][0]) #1d array 
 print(ar[0][0][0]) # value
+ar = np.arange(20)
+print(ar)
+print(ar[4])
+print(ar[3:6])
+print('-----')
+# 1D
+
+ar = np.arange(16).reshape(4,4)
+print(ar[2][1]) # Gets a value in a one-dimensional array
+print(ar[2,2])  # Third Row, third column→ 10
+print(ar[:2,1:])  # 1,2Row、2,3,4 column → 2d ARRAY
+print('-----')
+# 2D
+
+ar = np.arange(8).reshape(2,2,2)
+print(ar)   # 2*2*2
+print(ar[0])  # The 1th element in 3d array → 2d
+print(ar[0][0])  
+print(ar[0][0][1])  #value
+```
+
+- change value
+
+```
+ar = np.arange(10)
+print(ar)
+ar[5] = 100
+ar[7:9] = 200
+print(ar)
 ```
 
 
@@ -2278,7 +2315,44 @@ Practice :
 
 ```
 # axis、skipna
+import numpy as np
+import pandas as pd
+df = pd.DataFrame({'key1':[4,5,3,np.nan,2],# np.nan ：Null value
+                 'key2':[1,2,np.nan,4,5],
+                 'key3':[1,2,3,'j','k']},
+                 index = ['a','b','c','d','e'])
+print(df['key1'].dtype,df['key2'].dtype,df['key3'].dtype)
+print('-----')
+
+m1 = df.mean()# .mean()Calculate the mean, only number can be calculated
+print(m1,type(m1))
+print(df['key2'].mean()) #statistics column
+print('-----')
+
+m2 = df.mean(axis=1)# default axis= 0，means calculating in columns，axis=1
+print(m2)
+print('-----')
+
+m3 = df.mean(skipna=False) # skipna ignore Nan ，default True
+print(m3)
+print('-----')
 ```
+
+
+
+```
+print(df.count(),'→ count Na number\n')
+print(df.min(),'→ min\n',df['key2'].max(),'→ max\n')
+print(df.quantile(q=0.75),'→ quantile\n')
+print(df.sum(),'→ sum\n')
+print(df.mean(),'→ mean\n')
+print(df.median(),'→ median，50%\n')
+print(df.std(),'\n',df.var(),'→ std,var\n')
+print(df.skew(),'→ skew\n')
+print(df.kurt(),'→ kurt\n')
+```
+
+
 
 #### 8.2.4 File operation
 
@@ -2521,8 +2595,33 @@ plt.savefig('C:\\Users\\everi\\Desktop\\Code\\Python\\Py2021\\pic.png',
 - subplot
 
 ```
+# plt.figure() Drawing object
+# plt.figure(num=None, figsize=None, dpi=None, facecolor=None, edgecolor=None, 
+# frameon=True, FigureClass=<class 'matplotlib.figure.Figure'>, **kwargs)
+
+fig1 = plt.figure(num=1,figsize=(4,2))
+plt.plot(np.random.rand(50).cumsum(),'k--')
+fig2 = plt.figure(num=2,figsize=(4,2))
+plt.plot(50-np.random.rand(50).cumsum(),'k--')
+# num：Chart serial number
+# figsize：Chart size
+# When we call plot, if we set plot.figure (), a figure will be generated automatically
+```
+
+
 
 ```
+# create subplots  2 - create a figure，then return a subplot object array  → plt.subplot
+
+fig,axes = plt.subplots(2,3,figsize=(10,4)) #Generate an array of chart objects
+ts = pd.Series(np.random.randn(1000).cumsum())
+print(axes, axes.shape, type(axes))
+
+ax1 = axes[0,1]
+ax1.plot(ts)
+```
+
+
 
 - histogram and kde
 
@@ -2617,7 +2716,7 @@ sns.distplot(s,rug = True,
             hist_kws={"histtype": "step", "linewidth": 1,"alpha": 1, "color": "g"}) 
 ```
 
-<img src="./image/sb1.png" alt="pig" />
+<img src="./image/sb2.png" alt="pig" />
 
 Data density distribution of single sample
 
@@ -2817,6 +2916,8 @@ plt.title('Disease_size')
 ```
 
 <img src="./image/medic3.png" alt="pig"  />
+
+- kde
 
 ```
 # df01['Lesion_diameters_long'],df01['Lesion_diameters_short']
@@ -3198,7 +3299,234 @@ print(metrics.confusion_matrix(test_targets, test_pred, labels=[1, 0]))
 print('metrics accuracy：', metrics.accuracy_score(test_targets, test_pred)) # 0.837
 ```
 
+### 9.3 Course Review
 
+Words are not as good as table，table is not as good as the picture
+
+![pig](./image/r1.png)
+
+#### 9.3.1 Review
+
+- L1-Basic knowledge: Overview of data types, String/list/tuple/dict/ variable/opreator
+- L2-Python container: List/ Tuple/Dict/Set
+- L3- Control flow : Sequential /Branching /Cycle /Flow chart
+- L4-Strings
+- L5-Functions: keywords(return/pass/break/continue\)
+- L6-OOP:
+- L7-File / Exception
+- L8- Shop data loading and storage
+- L9-Numpy: Random/Transpose/Copy/ Calculation
+- L10-Pandas: Series/ DataFrame
+- L11- Matplotlib
+- L12- Seaborn
+- L13- User behavior analysis
+- L14- Medical CT Image Data Analysis
+
+#### 9.3.2 Next Step research direction
+
+- 1. Computer Vision
+
+  Multi object recognition
+
+  ![pig](./image/r2.png)
+
+3 D reconstruction
+
+![pig](./image/r3.gif)
+
+
+
+- 2. Natural Language Processing == NLP
+
+  ```
+  knowledge graph ：neo4j.bat console
+  https://grapheco.github.io/InteractiveGraph/dist/examples/example1.html
+  
+  Speech synthesis:
+  https://www.xfyun.cn/services/online_tts
+  ```
+
+  ![pig](./image/kg.png)
+
+  
+
+- 3. Recommendation system
+
+  ```
+  Application: mobile app/ notification is you are interested in
+  Website 
+  ```
+
+#### 9.3.3 Practice: Multi files operation
+
+```
+Talk is cheap, show me the code  -- Linus Torvalds
+```
+
+Sales data of products A and B of a company in January, February and March 2018. The format is xlsx .
+
+We need to read data in batches from different files and out put data_counts\columns\nan_counts
+
+```
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+import os
+%matplotlib inline
+```
+
+- Task1: output data_counts\columns\nan_counts
+
+```
+
+#os.chdir(r'C:\Users\everi\Desktop\Code\Python\Py2021\Lesson-15\') 
+path = 'C:/Users/everi/Desktop/Code/Python/Py2021/Lesson-15/'
+folder = os.walk(path)
+files = list(folder)[0][2]
+n = 1
+for i in files:
+    file = path + i
+    data = pd.read_excel(file) #read_excel
+    data_counts = len(data)  #data number
+    columns = data.columns.tolist() #output column
+    nan_counts = len(data[data.isnull().values == True])  # missing data ==nan
+    print('The data_counts of  %i th data is：%i' % (n, data_counts))
+    print('The columns of %i data is：' % n,columns)
+    print('The nan_counts %i  data is：：%i' % (n, nan_counts))
+    n += 1
+print("finished")
+```
+
+- output
+
+```
+The data_counts of  1 th data is：31
+The columns of 1 data is： ['date', 'productA', 'productB']
+The nan_counts 1  data is：：3
+The data_counts of  2 th data is：28
+The columns of 2 data is： ['date', 'productA', 'productB']
+The nan_counts 2  data is：：4
+The data_counts of  3 th data is：31
+The columns of 3 data is： ['date', 'productA', 'productB']
+The nan_counts 3  data is：：3
+finished
+```
+
+- task2 
+
+```
+# 1. change date to_period and output Dataframe with data1,data2,data3
+def f2_1():
+    path = 'C:/Users/everi/Desktop/Code/Python/Py2021/Lesson-15/'
+    folder = os.walk(path)  
+    files = list(folder)[0][2]
+    data_files = []
+    for i in files:
+        file = path + i
+        data = pd.read_excel(file,index_col = 0)
+        columns = data.columns.tolist()  # Extract column name
+        data.to_period()  # change date to time series
+        data[columns[0]].fillna(data[columns[0]].mean(),inplace = True)  
+        data[columns[1]].fillna(data[columns[1]].mean(),inplace = True)
+        #  fill missing value with mean
+        data_files.append(data)
+    return(data_files)
+
+
+# 2.Calculate the total monthly sales of products A and B
+# 3.Draw multi series histogram & save
+ 
+def f2_2(*data_files):
+    path = 'C:/Users/everi/Desktop/Code/Python/Py2021/Lesson-15/'
+    A_sale = []
+    B_sale = []
+    for data in data_files:
+        columns = data.columns #Extract column name
+        A_sale.append(data[columns[0]].sum())   # Update total sales of product A
+        B_sale.append(data[columns[1]].sum())   # B
+    df = pd.DataFrame({'A_sale_sum': A_sale,'B_sale_sum':B_sale},
+                     index = pd.period_range('201801','201803',freq = 'M'))
+    #print(df)   
+    plt.figure()
+    df.plot(kind = 'bar',style = '--o',color = ['r','g'],alpha = 0.8, rot = 0,figsize = (8,4))
+    plt.title('Sales  histogram')
+    plt.ylim([0,25000])
+    plt.legend(loc = 'upper left')
+    plt.grid()
+    plt.savefig(path + 'Products A,B Histogram.png',dpi=400)
+        
+# Record the date when the sales volume exceeds 80%  
+def f2_3(*data_files):
+    keydates = []
+    for data in data_files:
+        columns = data.columns 
+        data['A_sale_sum%'] = data[columns[0]].cumsum() / data[columns[0]].sum()  
+        keydate = data[data['A_sale_sum%']>0.8].index[0]  
+        keydates.append(str(keydate))
+    print('The date that exceeds 80% in product A is\n', keydates)
+    return(keydates)
+
+f2_1()
+data1, data2, data3 = f2_1()[0], f2_1()[1], f2_1()[2]
+print(data1.head(),'\n-----')
+f2_2(data1,data2,data3)
+f2_3(data1,data2,data3)
+```
+
+
+
+![pig](./image/L15t2.png)
+
+- task3: 
+
+```
+#1.delete missing values,Convert date to time series
+
+def f3_1():
+    path = 'C:/Users/everi/Desktop/Code/Python/Py2021/Lesson-15/'
+    folder = os.walk(path)  
+    files = list(folder)[0][2]
+    data_files = []
+    for i in files:
+        file = path + i
+        data = pd.read_excel(file,index_col = 0)
+        columns = data.columns.tolist()  # Extract column name
+        data.to_period()  # Convert to time series
+        data.dropna(inplace=True)  # Delete missing values
+        data_files.append(data)
+    data = pd.concat([data_files[0],data_files[1],data_files[2]])  # Merge data
+#     print(data)
+    return(data)
+
+
+#1.When the sales of product a is 1200, predict the sales volume of product B
+#2.Draw scatter and store the picture
+def f3_2(data):
+    path = 'C:/Users/everi/Desktop/Code/Python/Py2021/'
+    model = LinearRegression()
+    model.fit(data['productA'][:,np.newaxis],data['productB'])  
+    # build LinearRegression model
+    xtest = np.linspace(0,1000,1000)
+    ytest = model.predict(xtest[:,np.newaxis])
+    plt.scatter(data['productA'],data['productB'],marker = '.',color = 'k')
+    plt.plot(xtest,ytest,color = 'r')
+    plt.grid(True)
+    plt.title('Products A-B Sales LinearRegression')
+#     plt.savefig(path + 'A-B sale prediction.png',dpi=400)  
+    # save pic
+    predict_sales = 1200
+    predict_sales = np.array(predict_sales).reshape(-1, 1)
+    return(model.predict(predict_sales))
+
+f3_1()
+data = f3_1()
+print(' View AB product sales relationship\n-------')
+
+f3_2(data)
+```
+
+![pig](./image/L15t3.png)
 
 ## 10. Assessment and Evaluation
 
