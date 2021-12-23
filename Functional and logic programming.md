@@ -864,7 +864,8 @@ print('The end')
 2.Try to find all the even number in 1-20, and calculate the sum of all the even number
 
 ```python
-  ```
+
+```
 #break continue pass
 s = 0
 for i in range(20):
@@ -875,7 +876,8 @@ for i in range(20):
     print('%i'%(i/2))
 print('result is %i'%s)
   ```
-```
+
+  ```
 
 ### 3.4  Flow chart 
 
@@ -3529,6 +3531,30 @@ f3_2(data)
 ![pig](./image/L15t3.png)
 
 ## 10. Assessment and Evaluation
+
+### 10.0 Topics
+
+- 1. Application
+
+  - Chat robot （code:D:\Course\AI\knowledgeGraph\ch5-QAMedicalKG）
+
+  - KnowledgeGraph
+
+  - Mobile device(Android\Cross Platform--Java/HTML5/CSS3,We can use python in backend/server)
+
+    > http://www.tuling123.com/
+    >
+    > 
+    >
+    > ![pig](./image/cb2.png) ![pig](./image/cb1.png)
+
+  - Web Application(Framework)----- Java (SpringMVC/SpringBoot/Servlet)/PHP/ASP/Python(Django )
+
+  ![pig](./image/cb.png)
+
+- 2. Big Project Introduction(code&document)
+
+- 3. Summary
 
 ### 10.1 Grade definition
 
